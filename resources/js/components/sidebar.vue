@@ -11,6 +11,15 @@
         <li>
           <a href="/user-list"> <i class="fa fa-list" aria-hidden="true"></i>Users List</a>
         </li>
+        <li>
+          <a href="/add-project"> <i class="fa fa-list" aria-hidden="true"></i>Add project</a>
+        </li>
+        <li>
+          <a href="/project-list"> <i class="fa fa-list" aria-hidden="true"></i>Project list</a>
+        </li>
+        <li>
+          <a href="/assign-project"> <i class="fa fa-list" aria-hidden="true"></i>Assign project</a>
+        </li>
         
               
       </ul>

@@ -178,7 +178,7 @@ class UsersController extends Controller
         
             return response()->json([
                     'success' => false,
-                    'message' => 'Could not delee user.',
+                    'message' => 'Could not delete user.',
                 ]);
         } 
     }

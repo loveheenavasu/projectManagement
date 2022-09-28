@@ -7,6 +7,10 @@ import Welcome from '../components/Welcome'
 import adduser from '../components/adduser'
 import edituser from '../components/edituser'
 import userList from '../components/userList'
+import addproject from '../components/addproject'
+import projectList from '../components/projectList'
+import editproject from '../components/editproject'
+import assignproject from '../components/assignproject'
 
 const routes = [
     {
@@ -43,7 +47,27 @@ const routes = [
         path: '/user-edit/:id',
         name: 'edituser',
         component: edituser
-    }
+    },
+    {
+        path: '/add-project',
+        name: 'addproject',
+        component: addproject
+    },
+    {
+        path: '/project-list',
+        name: 'projectList',
+        component: projectList
+    },
+     {
+        path: '/project-edit/:id',
+        name: 'editproject',
+        component: editproject
+    },
+    {
+        path: '/assign-project',
+        name: 'assignproject',
+        component: assignproject
+    },
 ]
 
 

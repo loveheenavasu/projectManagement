@@ -28,5 +28,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('user-detail/{id}', [App\Http\Controllers\UsersController::class, 'userDetail']);
     Route::post('update-user', [App\Http\Controllers\UsersController::class, 'updateUser']);
     Route::get('user-delete/{id}', [App\Http\Controllers\UsersController::class, 'userDelete']);
+    //project
+    Route::post('add-project', [App\Http\Controllers\ProjectController::class, 'addProject']);
+    Route::get('project-list', [App\Http\Controllers\ProjectController::class, 'projectList']);
+    Route::get('project-detail/{id}', [App\Http\Controllers\ProjectController::class, 'projectDetail']);
+    Route::post('update-project', [App\Http\Controllers\ProjectController::class, 'updateProject']);
+    Route::get('project-delete/{id}', [App\Http\Controllers\ProjectController::class, 'projectDelete']);
+    Route::post('assign-project', [App\Http\Controllers\ProjectController::class, 'projectAssign']);
+
     
 });
