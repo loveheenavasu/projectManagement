@@ -36,7 +36,7 @@ class UsersController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Login credentials are invalid.',
-                ], 400);
+                ], 200);
             }
         } catch (JWTException $e) {
         

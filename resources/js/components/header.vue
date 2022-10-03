@@ -2,11 +2,7 @@
     <header>
   <nav class="navbar navbar-expand-lg navbar-light  custom-nav">
     <i class="fa fa-bars mobile-menu"></i>
-     <a class="navbar-brand" href="#">Project management</a>
-        <form class="form-inline search-form">
-          <i class="fa fa-search"></i>
-          <input class="form-control " type="search" placeholder="Search..." >
-        </form>
+        
         <ul class="navbar-nav mt-2 mt-lg-0">
            <!-- <li class="drop">
               <a class="nav-link bell-icon-badge" href="#">

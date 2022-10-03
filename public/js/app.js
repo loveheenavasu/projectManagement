@@ -22960,12 +22960,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       console.log('hello');
                       localStorage.setItem('access_token', response.data.token);
                       isAuthenticated.value = true;
-                      router.push('/user-list');
+                      router.push('/dashboard');
                     } else {
-                      console.log('error');
+                      document.getElementById('wrong-input').style.display = 'block';
+                      document.getElementById("wrong-input").innerHTML = "Invalid credential !!!";
                     }
                   })["catch"](function (error) {
-                    console.log(error);
+                    document.getElementById("wrong-input").innerHTML = "Invalid credential !!!";
                     console.log('error page');
                   });
                 } else {
@@ -23868,7 +23869,7 @@ var _hoisted_2 = {
   "class": "row"
 };
 
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<main class=\"col-md-10\" id=\"main\"><section class=\"spacethis\"><div class=\"row\"><div class=\"col-md-6\"><h5 class=\"title\">Requests</h5></div></div></section></main>", 1);
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<main class=\"col-md-10\" id=\"main\"><section class=\"spacethis\"><div class=\"row\"><div class=\"col-md-6\"><h5 class=\"title\">Dash</h5></div></div></section></main>", 1);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Header = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Header");
@@ -24128,24 +24129,28 @@ var _hoisted_1 = {
   "class": "navbar navbar-expand-lg navbar-light custom-nav"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<i class=\"fa fa-bars mobile-menu\"></i><a class=\"navbar-brand\" href=\"#\">Project management</a><form class=\"form-inline search-form\"><i class=\"fa fa-search\"></i><input class=\"form-control\" type=\"search\" placeholder=\"Search...\"></form>", 3);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "fa fa-bars mobile-menu"
+}, null, -1
+/* HOISTED */
+);
 
-var _hoisted_5 = {
+var _hoisted_3 = {
   "class": "navbar-nav mt-2 mt-lg-0"
 };
-var _hoisted_6 = {
+var _hoisted_4 = {
   "class": "nav-item"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Logout ");
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Logout ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("header", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"drop\">\n              <a class=\"nav-link bell-icon-badge\" href=\"#\">\n                <i class=\"fa fa-bell-o\" aria-hidden=\"true\"></i>\n                <span class=\"bell-badge\">10</span>\n              </a>\n\n              <ul class=\"drop-menu\">\n                <li><a href=\"#\">Art</a></li>\n                <li><a href=\"\">Coding</a></li>\n                <li><a href=\"\">Design</a></li>\n                <li><a href=\"\">Web Development</a></li>\n            </ul>\n        </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("header", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"drop\">\n              <a class=\"nav-link bell-icon-badge\" href=\"#\">\n                <i class=\"fa fa-bell-o\" aria-hidden=\"true\"></i>\n                <span class=\"bell-badge\">10</span>\n              </a>\n\n              <ul class=\"drop-menu\">\n                <li><a href=\"#\">Art</a></li>\n                <li><a href=\"\">Coding</a></li>\n                <li><a href=\"\">Design</a></li>\n                <li><a href=\"\">Web Development</a></li>\n            </ul>\n        </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "nav-link user-prfile",
     onClick: _cache[0] || (_cache[0] = function () {
       return $setup.logout && $setup.logout.apply($setup, arguments);
     })
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <img src=\"image/user.jpg\" alt=\"\"> "), _hoisted_7])])])])]);
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <img src=\"image/user.jpg\" alt=\"\"> "), _hoisted_5])])])])]);
 }
 
 /***/ }),
@@ -24164,7 +24169,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "login-form"
+  "class": "container"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
@@ -24173,50 +24178,54 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_3 = {
-  "class": "form-outline mb-4"
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  id: "wrong-input",
+  "class": "w-50 mx-auto alert alert-danger",
+  role: "alert",
+  style: {
+    "display": "none"
+  }
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_4 = {
+  "class": "form-group w-50 mx-auto"
 };
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "form-label",
   "for": "form2Example1"
 }, "Email address", -1
 /* HOISTED */
 );
 
-var _hoisted_5 = {
-  "class": "form-outline mb-4"
+var _hoisted_6 = {
+  "class": "form-outline mb-4 w-50 mx-auto"
 };
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "form-label",
   "for": "form2Example2"
 }, "Password", -1
 /* HOISTED */
 );
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "w-50 mx-auto"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
-  "class": "btn btn-primary btn-block mb-4"
-}, "Sign in", -1
-/* HOISTED */
-);
-
-var _hoisted_8 = {
-  key: 1
-};
-
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Dashboard ....", -1
+  "class": "btn btn-primary"
+}, "Sign in")], -1
 /* HOISTED */
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [$setup.isAuthenticated == false ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
-    key: 0,
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
     onSubmit: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $setup.login && $setup.login.apply($setup, arguments);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Email input "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Email input "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "email",
     id: "form2Example1",
     "class": "form-control",
@@ -24234,7 +24243,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     );
   }), 128
   /* KEYED_FRAGMENT */
-  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Password input "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Password input "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "password",
     id: "form2Example2",
     "class": "form-control",
@@ -24252,25 +24261,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     );
   }), 128
   /* KEYED_FRAGMENT */
-  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Submit button "), _hoisted_7])], 32
+  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Submit button "), _hoisted_8])], 32
   /* HYDRATE_EVENTS */
-  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    type: "button",
-    "class": "btn btn-dark",
-    onClick: _cache[3] || (_cache[3] = function () {
-      return $setup.logout && $setup.logout.apply($setup, arguments);
-    })
-  }, "Logout")])), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.v$.$errors, function (error) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
-      "class": "error",
-      key: error.$uid
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(error.$property) + "- " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(error.$message), 1
-    /* TEXT */
-    );
-  }), 128
-  /* KEYED_FRAGMENT */
-  ))], 64
-  /* STABLE_FRAGMENT */
   );
 }
 
@@ -24414,11 +24406,11 @@ var _hoisted_1 = {
   id: "sidebar"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"sidebar-menu\"><li><a href=\"\" class=\"active\"><i class=\"fa fa-dashboard\"></i> Dashboard</a></li><li><a href=\"/add-user\"><i class=\"fa fa-shopping-bag\" aria-hidden=\"true\"></i>Add users</a></li><li><a href=\"/user-list\"><i class=\"fa fa-list\" aria-hidden=\"true\"></i>Users List</a></li><li><a href=\"/add-project\"><i class=\"fa fa-list\" aria-hidden=\"true\"></i>Add project</a></li><li><a href=\"/project-list\"><i class=\"fa fa-list\" aria-hidden=\"true\"></i>Project list</a></li><li><a href=\"/assign-project\"><i class=\"fa fa-list\" aria-hidden=\"true\"></i>Assign project</a></li></ul>", 1);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<a class=\"navbar-brand\" href=\"#\">Project management</a><ul class=\"sidebar-menu\"><li><a href=\"\" class=\"active\"><i class=\"fa fa-dashboard\"></i> Dashboard</a></li><li><a href=\"/add-user\"><i class=\"fa fa-shopping-bag\" aria-hidden=\"true\"></i>Add users</a></li><li><a href=\"/user-list\"><i class=\"fa fa-list\" aria-hidden=\"true\"></i>Users List</a></li><li><a href=\"/add-project\"><i class=\"fa fa-list\" aria-hidden=\"true\"></i>Add project</a></li><li><a href=\"/project-list\"><i class=\"fa fa-list\" aria-hidden=\"true\"></i>Project list</a></li><li><a href=\"/assign-project\"><i class=\"fa fa-list\" aria-hidden=\"true\"></i>Assign project</a></li></ul>", 2);
 
-var _hoisted_3 = [_hoisted_2];
+var _hoisted_4 = [_hoisted_2];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("aside", _hoisted_1, _hoisted_3);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("aside", _hoisted_1, _hoisted_4);
 }
 
 /***/ }),
@@ -24632,11 +24624,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var routes = [{
   path: "/",
-  name: "Welcome",
-  component: _components_Welcome__WEBPACK_IMPORTED_MODULE_3__["default"]
-}, {
-  path: '/login',
-  name: 'login',
+  name: "login",
   component: _components_login__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
   path: '/register',
@@ -24724,7 +24712,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".error{\ncolor: red;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".error{\ncolor: red;\n}\n.container{\n\tpadding: 85px;\n    background-color: #efeded;\n}\n.error{\n\tcolor: red;\n}\n\n#main {\n\tbackground-color: #dee2e6;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

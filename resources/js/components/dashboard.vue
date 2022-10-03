@@ -4,14 +4,12 @@
 <div class="container-fluid">
   <div class="row">
     
-<Sidebar/>
+    <Sidebar/>
     <main class="col-md-10" id="main">
-      
-
       <section class="spacethis">
         <div class="row">
           <div class="col-md-6">
-            <h5 class="title">Requests</h5>
+            <h5 class="title">Dash</h5>
             
             
           </div>

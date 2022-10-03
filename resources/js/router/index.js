@@ -12,17 +12,14 @@ import projectList from '../components/projectList'
 import editproject from '../components/editproject'
 import assignproject from '../components/assignproject'
 
+
 const routes = [
     {
         path: "/",
-        name: "Welcome",
-        component: Welcome,
+        name: "login",
+        component: login,
       },
-    {
-        path: '/login',
-        name: 'login',
-        component: login
-    },
+    
     {
         path: '/register',
         name: 'register',

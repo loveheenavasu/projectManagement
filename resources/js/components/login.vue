@@ -1,46 +1,46 @@
 <template>
  
-    <form @submit.prevent="login" v-if="isAuthenticated == false">
-  <!-- Email input -->
-<div class="login-form">
-  <h2 class="login-text">
-    Login
-  </h2>
-  
-  <div class="form-outline mb-4">
-    <label class="form-label" for="form2Example1">Email address</label>
-    <input type="email" id="form2Example1" class="form-control"  v-model="form.email" />
-    
-    <span class="error" v-for="error in v$.email.$errors" :key="error.$uid">
-          {{ error.$message}}
-        </span>
-  </div>
+      <form @submit.prevent="login" >
+    <!-- Email input -->
+        <div class="container">
+                <h2 class="login-text">
+                  Login
+                </h2>
+                
+          
+              <div id="wrong-input" class="w-50 mx-auto  alert alert-danger" role="alert" style="display:none">
+              </div>
+              <div class="form-group w-50 mx-auto">
 
-  <!-- Password input -->
-  <div class="form-outline mb-4">
-    <label class="form-label" for="form2Example2">Password</label>
-    <input type="password" id="form2Example2" class="form-control" v-model="form.password" />
-    <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
-          {{ error.$message}}
-        </span>
-    
-  </div>
+                <label class="form-label" for="form2Example1">Email address</label>
+                <input type="email" id="form2Example1" class="form-control"  v-model="form.email" />
+                
+                <span class="error" v-for="error in v$.email.$errors" :key="error.$uid">
+                      {{ error.$message}}
+                    </span>
+              </div>
 
-  
+              <!-- Password input -->
+              <div class="form-outline mb-4 w-50 mx-auto">
+                <label class="form-label" for="form2Example2">Password</label>
+                <input type="password" id="form2Example2" class="form-control" v-model="form.password" />
+                <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
+                      {{ error.$message}}
+                    </span>
+                
+              </div>
 
-  <!-- Submit button -->
-  <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+          
 
-  </div>
-</form>
+            <!-- Submit button -->
+            <div class="w-50 mx-auto">
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </div>
+          </div>
+  </form>
 
-<div v-else>
-          <h2>Dashboard ....</h2>
-          <button type="button" class="btn btn-dark" @click="logout">Logout</button>
-        </div>
-        <span class="error" v-for="error in v$.$errors" :key="error.$uid">
-          {{ error.$property }}- {{ error.$message}}
-        </span>
+
+        
 </template>
 <script>
   import { reactive , inject,ref, onMounted } from 'vue';
@@ -64,12 +64,6 @@ export default {
       const router =useRouter();
 
       const login = async()=>{
-        // let res = await axios.post('api/auth-login',form);
-        // console.log(res.token);
-        // if(res.token){
-        //   console.log(res.token);
-        // }
-
         const result=await v$.value.$validate();
         if(result){
           axios.post('api/auth-login',form).then((response) => {
@@ -77,12 +71,13 @@ export default {
                 console.log('hello');
                 localStorage.setItem('access_token', response.data.token)
                 isAuthenticated.value = true;
-                router.push('/user-list')
+                router.push('/dashboard')
             }else{
-              console.log('error');
+              document.getElementById('wrong-input').style.display = 'block';
+              document.getElementById("wrong-input").innerHTML = "Invalid credential !!!";
             }
         }).catch((error) => {
-          console.log(error);
+            document.getElementById("wrong-input").innerHTML = "Invalid credential !!!";
             console.log('error page');
         })
         }else{

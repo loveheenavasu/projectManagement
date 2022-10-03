@@ -1,3 +1,14 @@
 .error{
 color: red;
 }
+.container{
+	padding: 85px;
+    background-color: #efeded;
+}
+.error{
+	color: red;
+}
+
+#main {
+	background-color: #dee2e6;
+}

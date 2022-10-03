@@ -1,5 +1,6 @@
 <template>
 <aside class="col-md-2" id="sidebar">
+  <a class="navbar-brand" href="#">Project management</a>
       <ul class="sidebar-menu">
         <li>
           <a href="" class="active"> <i class="fa fa-dashboard"></i> Dashboard</a>
