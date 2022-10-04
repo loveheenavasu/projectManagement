@@ -15,9 +15,8 @@ use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
     public function authenticate(Request $request){
-        //echo 'test';exit;
+      
        $credentials = $request->only('email', 'password');
-       //echo '<pre>';print_R($credentials);exit;
         $validator = Validator::make($credentials, [
             'email' => 'required|email',
             'password' => 'required'
@@ -77,11 +76,12 @@ class UsersController extends Controller
             $credentials['password']=Hash::make($credentials['password']);
             if($user=User::create($credentials)){
                 $user_id=$user->id;
-                $role_id=2;
+                $role_id=$request->role_id;
                 User_role::create(['user_id'=>$user_id,'role_id'=>$role_id]);
                 return response()->json([
                 'success' => true,
                 'user_id' => $user_id,
+                'role_id'=> $role_id,
                 'message'=>'user added successfully',
             ]);
                 
