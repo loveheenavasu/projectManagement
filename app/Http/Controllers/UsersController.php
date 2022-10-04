@@ -134,12 +134,13 @@ class UsersController extends Controller
     }
     public function updateUser(Request $request){
         try {
-            $credentials = $request->only('email','name');
+            $credentials = $request->only('email','name','password');
             $validator = Validator::make($credentials, [
                 'email' => 'required|email',
+                'password'=>'required',
                 'name'=>'required'
             ]);
-            
+             $credentials['password']=Hash::make($credentials['password']);
 
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->messages()], 200);

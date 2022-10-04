@@ -53,8 +53,8 @@
   import { required } from '@vuelidate/validators';
   import "../../css/custom.css";
   import Header from './header';
-    import Sidebar from './sidebar';
-    import { useRouter } from "vue-router";
+  import Sidebar from './sidebar';
+  import { useRouter } from "vue-router";
 export default {
     setup(){
       let cookies = inject('cookies');

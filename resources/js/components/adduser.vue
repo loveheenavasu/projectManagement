@@ -40,6 +40,11 @@
                             </span>
                         
                       </div>
+                       <select class="form-control" v-model="form.project" >
+                            <option  v-for="option in projectoption" :value="option.id">
+                            {{ option.name}}
+                            </option>
+                          </select>
 
                       
 
@@ -67,13 +72,14 @@
   import { required } from '@vuelidate/validators';
   import "../../css/custom.css";
   import Header from './header';
-    import Sidebar from './sidebar';
-    import { useRouter } from "vue-router";
+  import Sidebar from './sidebar';
+  import { useRouter } from "vue-router";
 export default {
     setup(){
       let cookies = inject('cookies');
       let isAuthenticated = ref(false);
-      const router =useRouter()
+      const router =useRouter();
+      let projectoption=ref(false);
       
       const form = reactive({
         email:'',
@@ -121,10 +127,29 @@ export default {
         }
         
       }
-      const checkLogin=async()=>{
-        if(localStorage.getItem('access_token')){
-          isAuthenticated.value = true;
-        }
+      const getRoles=async()=>{
+        console.log('yesy');
+        axios.get('/api/project-list', { headers:{
+            Authorization: "Bearer "+localStorage.getItem('access_token')
+            }}).then((response) => {
+              
+              if(response.data.status=="Token is Expired"){
+               this.logout();
+              }else{
+                  console.log(response);
+                  projectoption.value=response.data.projects;
+                  console.log(projectoption,'asfsdf')
+              //form.name=response.data.projects;
+              //form.id=id;
+              
+              
+              
+              }
+            
+        }).catch((error) => {
+            console.log('error page');
+            console.log(error);
+        })
       }
       const logout = () =>{
         if(localStorage.getItem('access_token')){
@@ -132,11 +157,12 @@ export default {
           isAuthenticated.value = false;
         }
       }
-      onMounted(checkLogin)
+      onMounted(getRoles)
       return {
         v$,
         form,
         addUser,
+        getRoles,
         isAuthenticated,
         logout
         

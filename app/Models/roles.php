@@ -13,6 +13,7 @@ class roles extends Model
 
 
 
+
  public function role()
     {
         return $this->hasOne(User_role::class, "user_id", "id")->with('role_detail');
