@@ -7,10 +7,13 @@
 <Sidebar/>
     <main class="col-md-10" id="main">
       
-
+          
       <section class="spacethis">
         <div class="row">
+          
           <div class="col-md-6">
+            <div id="wrong-input" class="w-50 mx-auto  alert alert-danger" role="alert" style="display:none">
+              </div>
             <h5 class="title">Requests</h5>
               <form @submit.prevent="addUser" >
                       <!-- Email input -->
@@ -40,8 +43,8 @@
                             </span>
                         
                       </div>
-                       <select class="form-control" v-model="form.project" >
-                            <option  v-for="option in projectoption" :value="option.id">
+                       <select class="form-control" v-model="form.role_id" >
+                            <option  v-for="option in roleoption" :value="option.id">
                             {{ option.name}}
                             </option>
                           </select>
@@ -79,17 +82,20 @@ export default {
       let cookies = inject('cookies');
       let isAuthenticated = ref(false);
       const router =useRouter();
-      let projectoption=ref(false);
+      let roleoption=ref(false);
       
       const form = reactive({
         email:'',
         password:'',
-        name:''
+        name:'',
+        role_id:''
       });
       const rules = {
         email:{required},
         password:{required},
         name:{required},
+        role_id:{required},
+
       };
       const v$=useValidate(rules, form)
 
@@ -108,7 +114,9 @@ export default {
             }}).then((response) => {
             console.log(response);
             if(response.data.success==false){
-                alert(response.data.message);
+                //alert(response.data.message);
+                document.getElementById('wrong-input').style.display = 'block';
+                document.getElementById("wrong-input").innerHTML =response.data.message;
             }else{
                router.push('/user-list')
             }
@@ -129,7 +137,7 @@ export default {
       }
       const getRoles=async()=>{
         console.log('yesy');
-        axios.get('/api/project-list', { headers:{
+        axios.get('/api/role-list', { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
             }}).then((response) => {
               
@@ -137,8 +145,8 @@ export default {
                this.logout();
               }else{
                   console.log(response);
-                  projectoption.value=response.data.projects;
-                  console.log(projectoption,'asfsdf')
+                  roleoption.value=response.data.roles;
+                 
               //form.name=response.data.projects;
               //form.id=id;
               
@@ -164,7 +172,8 @@ export default {
         addUser,
         getRoles,
         isAuthenticated,
-        logout
+        logout,
+        roleoption
         
       }
 
