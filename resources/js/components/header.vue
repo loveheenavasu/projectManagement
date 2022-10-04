@@ -52,7 +52,7 @@ export default {
         if(localStorage.getItem('access_token')){
           localStorage.setItem('access_token','')
           isAuthenticated.value = false;
-          router.push('/login')
+          router.push('/')
         }
       }
       onMounted(checkLogin)
