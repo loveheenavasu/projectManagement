@@ -1,32 +1,27 @@
 <template>
  
       <form @submit.prevent="login" >
-    <!-- Email input -->
-        <div class="container">
-                <h2 class="login-text">
-                  Login
-                </h2>
-                
-          
-              <div id="wrong-input" class="w-50 mx-auto  alert alert-danger" role="alert" style="display:none">
+              <!-- Email input -->
+          <div class="container login-form">
+                <h2 class="login-text">Login</h2>
+               <div id="wrong-input" class="w-50 mx-auto  alert alert-danger" role="alert" style="display:none">
               </div>
               <div class="form-group w-50 mx-auto">
 
-                <label class="form-label" for="form2Example1">Email address</label>
-                <input type="email" id="form2Example1" class="form-control"  v-model="form.email" />
-                
-                <span class="error" v-for="error in v$.email.$errors" :key="error.$uid">
-                      {{ error.$message}}
-                    </span>
+                  <label class="form-label" for="form2Example1">Email address</label>
+                  <input type="email" id="form2Example1" class="form-control"  v-model="form.email" />
+                  <span class="error" v-for="error in v$.email.$errors" :key="error.$uid">
+                        {{ error.$message}}
+                  </span>
               </div>
 
               <!-- Password input -->
               <div class="form-outline mb-4 w-50 mx-auto">
-                <label class="form-label" for="form2Example2">Password</label>
-                <input type="password" id="form2Example2" class="form-control" v-model="form.password" />
-                <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
-                      {{ error.$message}}
-                    </span>
+                  <label class="form-label" for="form2Example2">Password</label>
+                  <input type="password" id="form2Example2" class="form-control" v-model="form.password" />
+                  <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
+                        {{ error.$message}}
+                  </span>
                 
               </div>
 

@@ -1,49 +1,48 @@
 <template>
-   <Header/>
+   
 
-<div class="container-fluid">
-  <div class="row">
-    
-<Sidebar/>
-    <main class="col-md-10" id="main">
-      
-          
-      <section class="spacethis">
-        <div class="row">
-          
-          <div class="col-md-6">
-            <div id="wrong-input" class="w-50 mx-auto  alert alert-danger" role="alert" style="display:none">
-              </div>
-            <h5 class="title">Requests</h5>
-              <form @submit.prevent="addUser" >
+
+  <Sidebar/>
+  <main class="main">
+     <Header/>       
+
+
+            <div class="admin-block mb-3">
+                <div class="container">
+                  
+                    <div class="row justify-content-center">
+                        <div class="col-xl-8 col-sm-8 py-4 style-block">
+                          <div id="wrong-input" class="alert alert-danger" role="alert" style="display:none">
+                  </div>
+                            <form @submit.prevent="addUser" >
                       <!-- Email input -->
-                      <div class="form-outline mb-4">
-                        <label class="form-label" for="form2Example1">Name </label>
-                        <input type="text" id="form2Example1" class="form-control"  v-model="form.name" />
-                        
-                        <span class="error" v-for="error in v$.name.$errors" :key="error.$uid">
-                              {{ error.$message}}
-                            </span>
-                      </div>
-                      <div class="form-outline mb-4">
-                        <label class="form-label" for="form2Example1">Email address</label>
-                        <input type="email" id="form2Example1" class="form-control"  v-model="form.email" />
-                        
-                        <span class="error" v-for="error in v$.email.$errors" :key="error.$uid">
-                              {{ error.$message}}
-                            </span>
-                      </div>
+                            <div class="form-outline mb-4">
+                              <label class="form-label" for="form2Example1">Name </label>
+                              <input type="text" id="form2Example1" class="form-control"  v-model="form.name" />
+                              
+                              <span class="error" v-for="error in v$.name.$errors" :key="error.$uid">
+                                    {{ error.$message}}
+                                  </span>
+                            </div>
+                            <div class="form-outline mb-6">
+                              <label class="form-label" for="form2Example1">Email address</label>
+                              <input type="email" id="form2Example1" class="form-control"  v-model="form.email" />
+                              
+                              <span class="error" v-for="error in v$.email.$errors" :key="error.$uid">
+                                    {{ error.$message}}
+                                  </span>
+                            </div>
 
                       <!-- Password input -->
-                      <div class="form-outline mb-4">
-                        <label class="form-label" for="form2Example2">Password</label>
-                        <input type="password" id="form2Example2" class="form-control" v-model="form.password" />
-                        <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
-                              {{ error.$message}}
-                            </span>
-                        
-                      </div>
-                       <select class="form-control" v-model="form.role_id" >
+                          <div class="form-outline mb-4">
+                            <label class="form-label" for="form2Example2">Password</label>
+                            <input type="password" id="form2Example2" class="form-control" v-model="form.password" />
+                            <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
+                                  {{ error.$message}}
+                                </span>
+                            
+                          </div>
+                        <select class="form-control" v-model="form.role_id" >
                             <option  v-for="option in roleoption" :value="option.id">
                             {{ option.name}}
                             </option>
@@ -52,21 +51,19 @@
                       
 
                       <!-- Submit button -->
-                      <button type="submit" class="btn btn-primary btn-block mb-4">Add user</button>
+                      <button type="submit" class="btn btn-primary btn-block mt-4">Add user</button>
 
   
             </form>
-            
-          </div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </main>
 
-          
-        </div>
-      </section>
-
-      
-    </main>
-  </div>
-</div>
     
 </template>
 <script>

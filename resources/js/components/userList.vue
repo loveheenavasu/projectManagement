@@ -1,50 +1,46 @@
 <template>
-   <Header/>
+   <Sidebar/>
+  <main class="main">
+     <Header/>       
 
-<div class="container-fluid">
-  <div class="row">
-    
-<Sidebar/>
-    <main class="col-md-10" id="main">
-      
 
-      <section class="spacethis">
-        <div class="row">
-          <div class="col-md-6">
-            <h5 class="title">User List</h5>
-               <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for='(user, index) in users'>
-                    <td>{{user.name}} </td>
-                    <td>{{user.email}}</td>
-                    <td>
-                      <router-link :to="'/user-edit/' + user.id">Edit</router-link> / <button @click="userDelete(user.id,index)">Delete</button>
-                    </td>
-                    
-                </tr>
-            </tbody>
-        </table>
-
-  
-                      
-            
-          </div>
-
-          
-        </div>
-      </section>
-
-      
-    </main>
-  </div>
-</div>
+            <div class="admin-block mb-3">
+                <div class="container">
+                  
+                  
+                    <div class="row justify-content-center">
+                        <div class="col-xl-8 col-sm-8 py-4 style-block">
+                          <a class="nav-link text-right" href="/add-user">
+                            Add user
+                          </a>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Action</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='(user, index) in users'>
+                                        <td>{{user.name}} </td>
+                                        <td>{{user.email}}</td>
+                                        <td>
+                                          <router-link :to="'/user-edit/' + user.id">Edit</router-link> / <button @click="userDelete(user.id,index)">Delete</button>
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </main>
     
 </template>
 <script>
@@ -77,14 +73,7 @@ export default {
       const v$=useValidate(rules, form)
 
       const getUsers = async()=>{
-        // let res = await axios.post('api/auth-login',form);
-        // console.log(res.token);
-        // if(res.token){
-        //   console.log(res.token);
-        // }
-
-
-          axios.get('api/user-list', { headers:{
+        axios.get('api/user-list', { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
             }}).then((response) => {
               
