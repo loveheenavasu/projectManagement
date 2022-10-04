@@ -8,6 +8,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User_role;
+use App\Models\roles;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -76,7 +77,7 @@ class UsersController extends Controller
             $credentials['password']=Hash::make($credentials['password']);
             if($user=User::create($credentials)){
                 $user_id=$user->id;
-                $role_id=1;
+                $role_id=2;
                 User_role::create(['user_id'=>$user_id,'role_id'=>$role_id]);
                 return response()->json([
                 'success' => true,
@@ -96,7 +97,7 @@ class UsersController extends Controller
 
     public function userList(){
         try {
-            $userList=User::get();
+           $userList=User::with("role")->get();
             return response()->json([
                 'success' => true,
                 'user' => $userList
@@ -114,7 +115,9 @@ class UsersController extends Controller
     public function userDetail($id){
         try {
 
-            $userList=User::where('id',$id)->first();
+             $userList=User::with("role")->where('id',$id)->first();
+
+             //print_r($userList);die();
             return response()->json([
                 'success' => true,
                 'user' => $userList
@@ -124,7 +127,7 @@ class UsersController extends Controller
         
             return response()->json([
                     'success' => false,
-                    'message' => 'Could not get user.',
+                    'message' => 'Could not get userdetail.',
                 ]);
         } 
 
@@ -181,6 +184,25 @@ class UsersController extends Controller
                     'message' => 'Could not delete user.',
                 ]);
         } 
+    }
+    public function roleList(){
+        try {
+
+            $user = JWTAuth::user();           
+            $userList=roles::get();
+            return response()->json([
+                'success' => true,
+                'roles' => $userList
+            ]);
+
+            } catch (JWTException $e) {
+        
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Could not get rolelist.',
+                ]);
+        } 
+
     }
     
 }

@@ -35,6 +35,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('update-project', [App\Http\Controllers\ProjectController::class, 'updateProject']);
     Route::get('project-delete/{id}', [App\Http\Controllers\ProjectController::class, 'projectDelete']);
     Route::post('assign-project', [App\Http\Controllers\ProjectController::class, 'projectAssign']);
+    //role
+     Route::get('role-list', [App\Http\Controllers\UsersController::class, 'roleList']);
+
 
     
 });
