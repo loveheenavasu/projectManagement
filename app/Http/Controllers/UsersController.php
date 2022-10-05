@@ -95,9 +95,18 @@ class UsersController extends Controller
         } 
     }
 
-    public function userList(){
+    public function userList(Request $request){
         try {
-           $userList=User::with("role")->get();
+             $page = $request->has('page') ? $request->get('page') : 1;
+             $limit = $request->has('limit') ? $request->get('limit') : 5;
+
+
+
+           $userList=User::with("role")->limit($limit)->offset(($page - 1) * $limit)->orderBy('id','DESC')->get();
+
+
+
+
             return response()->json([
                 'success' => true,
                 'user' => $userList

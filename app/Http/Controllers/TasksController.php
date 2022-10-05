@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\Tasks;
+use App\Models\Assigntask;
 
 
 
@@ -76,4 +77,108 @@ class TasksController extends Controller
         } 
 
     }
+
+     public function updatetask(Request $request){
+        try {
+
+            //echo 'workedit';die();
+             $credentials = $request->only('taskname','taskdetail','project_id');
+
+             //echo '<pre>';print_r($credentials );die();
+            $validator = Validator::make($credentials, [
+                 'taskname'=>'required',
+                 'taskdetail'=>'required',
+                 'project_id'=>'required'
+              
+            ]);
+            //$credentials['status']="pending";
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->messages()], 200);
+            }
+            if(Tasks::where('taskname',$credentials['taskname'])->count()>0){
+                    return response()->json([
+                    'success' => false,
+                    'message'=>'tasks with this name already exist'
+                ]);
+            }
+             if ($user = Tasks::where("id", $request->id)->update(
+                    $credentials)) {
+                    return response()->json([
+                        'success' => true,
+                        'message'=>'task updated successfully',
+                ]);
+
+            }          
+        } catch (JWTException $e) {
+        
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Could not update task.',
+                ]);
+        } 
+    }
+
+    public function taskDelete($id){
+        try{
+
+            //echo 'delete';die();
+        $projectList=Tasks::where('id',$id)->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'task deleted successfully'
+            ]);
+
+            } catch (JWTException $e) {
+        
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Could not delete task.',
+                ]);
+        } 
+    }
+
+    public function assigntask(Request $request){
+        try {
+            //echo 'assigntask';die();
+
+            $credentials = $request->only('user_id','project_id','task_id','starting_date','ending_date','status');
+
+              $validator = Validator::make($credentials, [
+                 'user_id'=>'required',
+                 'project_id'=>'required',
+                 'task_id'=>'required',
+                 'starting_date'=>'required',
+                 'ending_date'=>'required',
+                 
+
+
+
+
+        ]);
+
+           if ($validator->fails()) {
+                return response()->json(['error' => $validator->messages()], 200);
+            }
+              // $taskList=Task::where('id',$id)->first();
+             if($user=Assigntask::create($credentials)){
+                
+                return response()->json([
+                'success' => true,
+                'message'=>'task Assign successfully',
+            ]);
+                
+            }
+
+            } catch (JWTException $e) {
+        
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to assign task.',
+                ]);
+        } 
+    }
+
+
+
+
 }
