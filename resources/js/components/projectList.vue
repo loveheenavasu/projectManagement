@@ -1,55 +1,50 @@
 <template>
-   <Header/>
+  <Sidebar/>
+  <main class="main">
+     <Header/>       
 
-<div class="container-fluid">
-  <div class="row">
-    
-<Sidebar/>
-    <main class="col-md-10" id="main">
-      
 
-      <section class="spacethis">
-        <div class="row">
-          <div class="col-md-6">
-            <h5 class="title">Project List</h5>
-               <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Assigned to</th>
-                    <th>Action</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for='(user, index) in users'>
-                    <td>{{user.name}} </td>
-                    <td> 
-                    <li v-if="!user.assigned_detail.length">No item found</li>
-  <li v-for="item in user.assigned_detail">
-    {{item.user_detail.name}}
-  </li></td>
-                    <td>
-                      <router-link :to="'/project-edit/' + user.id">Edit</router-link> / <button @click="projectDelete(user.id,index)">Delete</button>
-                    </td>
-                    
-                </tr>
-            </tbody>
+            <div class="admin-block mb-3">
+                <div class="container">
+                  
+                  
+                    <div class="row justify-content-center">
+                        <div class="col-xl-8 col-sm-8 py-4 style-block">
+                          <a class="nav-link text-right" href="/add-project">
+                           Add Project
+                          </a>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Assigned to</th>
+                                        <th>Action</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='(user, index) in users'>
+                                        <td>{{user.name}} </td>
+                                        <td> 
+                                        <li v-if="!user.assigned_detail.length">No item found</li>
+                      <li v-for="item in user.assigned_detail">
+                        {{item.user_detail.name}}
+                      </li></td>
+                                        <td>
+                                          <router-link :to="'/project-edit/' + user.id">Edit</router-link> / <button @click="projectDelete(user.id,index)">Delete</button>
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
         </table>
-
-  
-                      
-            
-          </div>
-
-          
-        </div>
-      </section>
-
-      
-    </main>
-  </div>
-</div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </main>
     
 </template>
 <script>

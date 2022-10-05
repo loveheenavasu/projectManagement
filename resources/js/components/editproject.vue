@@ -1,18 +1,17 @@
  <template>
-   <Header/>
+   <Sidebar/>
+  <main class="main">
+     <Header/>       
 
-<div class="container-fluid">
-  <div class="row">
-    
-<Sidebar/>
-    <main class="col-md-10" id="main">
-      
 
-      <section class="spacethis">
-        <div class="row">
-          <div class="col-md-6">
-            <h5 class="title">Requests</h5>
-              <form @submit.prevent="updateProject" >
+            <div class="admin-block mb-3">
+                <div class="container">
+                  
+                  
+                    <div class="row justify-content-center">
+                        <div class="col-xl-8 col-sm-8 py-4 style-block">
+                          
+                            <form @submit.prevent="updateProject" >
                       <!-- Email input -->
                       <div  class="form-outline mb-4">
                           <label class="form-label" for="form2Example1">Name </label>
@@ -34,17 +33,14 @@
 
   
             </form>
-            
-          </div>
-
-          
-        </div>
-      </section>
-
-      
-    </main>
-  </div>
-</div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </main>
     
 </template>
 <script>

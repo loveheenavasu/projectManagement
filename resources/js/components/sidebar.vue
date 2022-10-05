@@ -18,6 +18,13 @@
                         </a>
                         
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/project-list">
+                            <i class="fa-solid fa-list-check"></i>
+                            Projects
+                        </a>
+                        
+                    </li>
                    <!--  <li class="nav-item">
                         <a class="nav-link" href="#">
                             Products

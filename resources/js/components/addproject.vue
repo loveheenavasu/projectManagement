@@ -1,49 +1,40 @@
 <template>
-   <Header/>
+   <Sidebar/>
+  <main class="main">
+     <Header/>       
 
-<div class="container-fluid">
-  <div class="row">
-    
-<Sidebar/>
-    <main class="col-md-10" id="main">
-      
 
-      <section class="spacethis">
-        <div class="row">
-          <div class="col-md-6">
-            <h5 class="title">Requests</h5>
-              <form @submit.prevent="addProject" >
+            <div class="admin-block mb-3">
+                <div class="container">
+                  
+                  
+                    <div class="row justify-content-center">
+                        <div class="col-xl-8 col-sm-8 py-4 style-block">
+                          
+                            <form @submit.prevent="addProject" >
                       <!-- Email input -->
-                      <div class="form-outline mb-4">
-                        <label class="form-label" for="form2Example1">Project Name </label>
-                        <input type="text" id="form2Example1" class="form-control"  v-model="form.name" />
-                        
-                        <span class="error" v-for="error in v$.name.$errors" :key="error.$uid">
-                              {{ error.$message}}
-                            </span>
-                      </div>
+                              <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example1">Project Name </label>
+                                <input type="text" id="form2Example1" class="form-control"  v-model="form.name" />
+                                
+                                <span class="error" v-for="error in v$.name.$errors" :key="error.$uid">
+                                      {{ error.$message}}
+                                    </span>
+                              </div>
                       
-
-                      
-
-                      
-
-                      <!-- Submit button -->
-                      <button type="submit" class="btn btn-primary btn-block mb-4">Add Project</button>
+                                <!-- Submit button -->
+                              <button type="submit" class="btn btn-primary btn-block mb-4">Add Project</button>
 
   
             </form>
-            
-          </div>
-
-          
-        </div>
-      </section>
-
-      
-    </main>
-  </div>
-</div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </main>
     
 </template>
 <script>

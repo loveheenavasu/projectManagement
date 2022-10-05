@@ -27,6 +27,14 @@
                               {{ error.$message}}
                             </span>
                       </div>
+                      <div class="form-outline mb-4">
+                          <label class="form-label" for="form2Example1">Password</label>
+                          <input type="password"  id="form2Example1" class="form-control" v-model="form.password"/>
+                        
+                          <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
+                              {{ error.$message}}
+                            </span>
+                      </div>
                       <input type="hidden" v-model="form.id" >
 
                       
@@ -67,11 +75,13 @@ export default {
       const users = ref(0);
       const form = reactive({
         email:'',
-        name:''
+        name:'',
+        password:''
       });
       const rules = {
         email:{required},
         name:{required},
+        password:{required},
       };
       const v$=useValidate(rules, form)
 

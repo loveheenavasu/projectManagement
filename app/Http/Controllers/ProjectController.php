@@ -94,12 +94,12 @@ class ProjectController extends Controller
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->messages()], 200);
             }
-            if(Projects::where('name',$credentials['name'])->count()>0){
-                    return response()->json([
-                    'success' => false,
-                    'message'=>'project name already exist'
-                ]);
-            }
+            // if(Projects::where('name',$credentials['name'])->count()>0){
+            //         return response()->json([
+            //         'success' => false,
+            //         'message'=>'project name already exist'
+            //     ]);
+            // }
 
             if ($user = Projects::where("id", $request->id)->update(
                     $credentials)) {

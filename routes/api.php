@@ -39,6 +39,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //role
      Route::get('role-list', [App\Http\Controllers\UsersController::class, 'roleList']);
 
+     //Tasks
+     Route::post('add-task', [App\Http\Controllers\TasksController::class, 'addTask']);
+
 
     
 });

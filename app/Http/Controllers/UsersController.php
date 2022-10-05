@@ -145,21 +145,36 @@ class UsersController extends Controller
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->messages()], 200);
             }
-            if(User::where('email',$credentials['email'])->count()>0){
-                    return response()->json([
-                    'success' => false,
-                    'message'=>'email already exist'
-                ]);
-            }
-
-            if ($user = User::where("id", $request->id)->update(
+            $user=User::where('email',$credentials['email'])->first();
+            //echo '<pre>';print_R($user->id);exit;
+            if(isset($user->id) && $user->id==$request->id){
+                if ($user = User::where("id", $request->id)->update(
                     $credentials)) {
                     return response()->json([
                         'success' => true,
                         'message'=>'user updated successfully',
                 ]);
 
+                }
+            }else{
+                if(User::where('email',$credentials['email'])->count()>0){
+                    return response()->json([
+                    'success' => false,
+                    'message'=>'email already exist'
+                ]);
             }
+            }
+             if ($user = User::where("id", $request->id)->update(
+                    $credentials)) {
+                    return response()->json([
+                        'success' => true,
+                        'message'=>'user updated successfully',
+                ]);
+
+                }
+            
+
+            
             
         } catch (JWTException $e) {
         
