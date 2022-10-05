@@ -10,7 +10,7 @@
                   
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-sm-8 py-4 style-block">
-                          <a class="nav-link text-right" href="/add-project">
+                          <a class="nav-link text-right" href="//add-tasks/">
                            Add Task
                           </a>
                             <table class="table table-striped table-bordered">
@@ -65,7 +65,7 @@ export default {
       const router =useRouter();
       const user_role=ref(0);
       console.log(router);
-      
+      const id = route.params.id;
       
       const form = reactive({
         email:'',
@@ -87,7 +87,7 @@ export default {
         // }
 
 
-          axios.get('/api/project-list', { headers:{
+          axios.get('/api/task-list', { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
             }}).then((response) => {
               
@@ -96,8 +96,8 @@ export default {
                this.logout();
             }else{
 
-              users.value=response.data.projects;
-              user_role.value=
+              users.value=response.data.tasks;
+              //user_role.value=
               
             }
         }).catch((error) => {
