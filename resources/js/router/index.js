@@ -13,6 +13,7 @@ import editproject from '../components/editproject'
 import assignproject from '../components/assignproject'
 import projectTasks from '../components/projectTasks'
 import addTasks from '../components/addTasks'
+import assignTasks from '../components/assignTasks'
 
 
 const routes = [
@@ -76,6 +77,11 @@ const routes = [
         path: '/add-tasks/:id',
         name: 'addTasks',
         component: addTasks
+    },
+    {
+        path: '/assign-task/:project_id/:task_id',
+        name: 'assignTasks',
+        component: assignTasks
     },
 ]
 

@@ -10,9 +10,7 @@
                   
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-sm-8 py-4 style-block">
-                          <a class="nav-link text-right" href="//add-tasks/">
-                           Add Task
-                          </a>
+                                                    <router-link :to="'/add-tasks/' + project_id" class="nav-link text-right">Add Task</router-link>
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
@@ -24,16 +22,14 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for='(user, index) in users'>
-                                        <td>{{user.name}} </td>
+                                        <td>{{user.taskname}} </td>
                                         <td> 
-                                        <li v-if="!user.assigned_detail.length">No item found</li>
-                      <li v-for="item in user.assigned_detail">
-                        {{item.user_detail.name}}
-                      </li></td>
+                                        {{user.taskdetail}} 
+                                        </td>      
                                         <td>
                                           <router-link :to="'/project-edit/' + user.id">Edit</router-link> / <button @click="projectDelete(user.id,index)">Delete</button>
                                           /
-                                          <router-link :to="'/project-taks/' + user.id">View Tasks</router-link> 
+                                          <router-link :to="'/assign-task/' + project_id+'/'+user.id">Assign task</router-link> 
                                         </td>
                                         
                                     </tr>
@@ -55,15 +51,18 @@
   import { required } from '@vuelidate/validators';
   import "../../css/custom.css";
   import Header from './header';
-    import Sidebar from './sidebar';
-    import { useRouter } from "vue-router";
+  import Sidebar from './sidebar';
+  import { useRouter,useRoute } from "vue-router";
 export default {
     setup(){
       let cookies = inject('cookies');
       let isAuthenticated = ref(false);
       const users = ref(0);
       const router =useRouter();
+       const route=useRoute()
       const user_role=ref(0);
+      const project_id=ref(0);
+
       console.log(router);
       const id = route.params.id;
       
@@ -87,7 +86,7 @@ export default {
         // }
 
 
-          axios.get('/api/task-list', { headers:{
+          axios.get('/api/task-list/'+id, { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
             }}).then((response) => {
               
@@ -97,6 +96,7 @@ export default {
             }else{
 
               users.value=response.data.tasks;
+              project_id.value=id;
               //user_role.value=
               
             }
@@ -131,7 +131,8 @@ export default {
         isAuthenticated,
         logout,
         deleteFunc,
-        useRouter
+        useRouter,
+        project_id
         
       }
 

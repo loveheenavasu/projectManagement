@@ -11,16 +11,33 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-sm-8 py-4 style-block">
                           
-                            <form @submit.prevent="addProject" >
+                            <form @submit.prevent="addTask" >
                       <!-- Email input -->
                               <div class="form-outline mb-4">
-                                <label class="form-label" for="form2Example1">Project Name </label>
-                                <input type="text" id="form2Example1" class="form-control"  v-model="form.name" />
+                                <label class="form-label" for="form2Example1">Task Name </label>
+                                <input type="text" id="form2Example1" class="form-control"  v-model="form.taskname" />
                                 
-                                <span class="error" v-for="error in v$.name.$errors" :key="error.$uid">
+                                <span class="error" v-for="error in v$.taskname.$errors" :key="error.$uid">
                                       {{ error.$message}}
                                     </span>
                               </div>
+                              <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example1">Task Description </label>
+                                <input type="text" id="form2Example1" class="form-control"  v-model="form.taskdetail" />
+                                
+                                <span class="error" v-for="error in v$.taskdetail.$errors" :key="error.$uid">
+                                      {{ error.$message}}
+                                    </span>
+                              </div>
+                              <!-- <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example1">Select project </label>
+                              <select class="form-control" v-model="form.project_id" >
+                              <option  v-for="option in projectoption" :value="option.id">
+                              {{ option.name}}
+                              </option>
+                            </select>
+                          </div> -->
+                              <input type="hidden" v-model="form.project_id" >
                       
                                 <!-- Submit button -->
                               <button type="submit" class="btn btn-primary btn-block mb-4">Add Project</button>
@@ -43,34 +60,42 @@
   import { required } from '@vuelidate/validators';
   import "../../css/custom.css";
   import Header from './header';
-    import Sidebar from './sidebar';
-    import { useRouter } from "vue-router";
+  import Sidebar from './sidebar';
+  import { useRouter,useRoute } from "vue-router";
 export default {
     setup(){
       let cookies = inject('cookies');
       let isAuthenticated = ref(false);
+
       const router =useRouter()
+      const route=useRoute()
+      const id = route.params.id;
+      let project_id=ref(false);
       
       const form = reactive({
-        name:''
+        taskname:'',
+        taskdetail:'',
+        project_id:''
       });
       const rules = {
-        name:{required},
+        taskname:{required},
+        taskdetail:{required},
+        project_id:{required}
       };
       const v$=useValidate(rules, form)
 
-      const addProject = async()=>{
+      const addTask = async()=>{
         console.log(form);
         const result=await v$.value.$validate();
         if(result){
-          axios.post('api/add-project',form, { headers:{
+          axios.post('/api/add-task',form, { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
             }}).then((response) => {
              console.log(response);
             if(response.data.success==false){
                 alert(response.data.message);
             }else{
-               router.push('/project-list')
+               router.push('/project-tasks/'+id)
             }
             //   if(response.data.token){
             //     console.log('hello');
@@ -87,14 +112,24 @@ export default {
         }
         
       }
+
+      const getProject = async()=>{
+          project_id
+          form.project_id=id;
+          
+        
+        
+      }
+      onMounted(getProject)
       
       
       
       return {
         v$,
         form,
-        addProject,
+        addTask,
         isAuthenticated,
+        getProject,
         
         
       }
