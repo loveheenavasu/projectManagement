@@ -9,7 +9,7 @@
               <div class="form-group w-50 mx-auto">
 
                   <label class="form-label" for="form2Example1">Email address</label>
-                  <input type="email" id="form2Example1" class="form-control"  v-model="form.email" />
+                  <input type="email" placeholder="Email" id="form2Example1" class="form-control"  v-model="form.email" />
                   <span class="error" v-for="error in v$.email.$errors" :key="error.$uid">
                         {{ error.$message}}
                   </span>
@@ -18,7 +18,7 @@
               <!-- Password input -->
               <div class="form-outline mb-4 w-50 mx-auto">
                   <label class="form-label" for="form2Example2">Password</label>
-                  <input type="password" id="form2Example2" class="form-control" v-model="form.password" />
+                  <input type="password" placeholder="Password" id="form2Example2" class="form-control" v-model="form.password" />
                   <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
                         {{ error.$message}}
                   </span>
@@ -64,6 +64,7 @@ export default {
           axios.post('api/auth-login',form).then((response) => {
               if(response.data.token){
                 console.log('hello');
+                localStorage.setItem('access_token', response.data.token)
                 localStorage.setItem('access_token', response.data.token)
                 isAuthenticated.value = true;
                 router.push('/dashboard')

@@ -11,13 +11,13 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-sm-8 py-4 style-block">
                           <a class="nav-link text-right" href="/add-project">
-                           Add Project
+                           Add Task
                           </a>
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Assigned to</th>
+                                        <th>Description</th>
                                         <th>Action</th>
                                         
                                     </tr>
@@ -33,7 +33,7 @@
                                         <td>
                                           <router-link :to="'/project-edit/' + user.id">Edit</router-link> / <button @click="projectDelete(user.id,index)">Delete</button>
                                           /
-                                          <router-link :to="'/project-tasks/' + user.id">View Tasks</router-link> 
+                                          <router-link :to="'/project-taks/' + user.id">View Tasks</router-link> 
                                         </td>
                                         
                                     </tr>
@@ -63,6 +63,7 @@ export default {
       let isAuthenticated = ref(false);
       const users = ref(0);
       const router =useRouter();
+      const user_role=ref(0);
       console.log(router);
       
       
@@ -86,7 +87,7 @@ export default {
         // }
 
 
-          axios.get('api/project-list', { headers:{
+          axios.get('/api/project-list', { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
             }}).then((response) => {
               
@@ -96,6 +97,7 @@ export default {
             }else{
 
               users.value=response.data.projects;
+              user_role.value=
               
             }
         }).catch((error) => {
