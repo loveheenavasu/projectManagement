@@ -148,7 +148,7 @@ export default {
     components: {
     'Header': Header,
     'Sidebar': Sidebar,
-    'VPagination':  VPagination,
+    
   },
   methods:{
         async userDelete(id,index){

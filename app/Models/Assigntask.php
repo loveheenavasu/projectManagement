@@ -19,6 +19,16 @@ class Assigntask extends Model
        
     ];
 
+    public function user(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+    public function project(){
+        return $this->hasOne(Projects::class, 'id', 'project_id');
+    }
+    public function task_detail(){
+        return $this->hasOne(Tasks::class, 'id', 'task_id');
+    }
+
 
 
 

@@ -177,6 +177,27 @@ class TasksController extends Controller
                 ]);
         } 
     }
+    public function taskDetail(){
+         try {
+            
+              // $taskList=Task::where('id',$id)->first();
+             $task_detail=Assigntask::with('task_detail')->with('user')->with('project')->get()->toArray();
+             echo '<pre>';print_R($task_detail);exit;
+                
+                return response()->json([
+                'success' => true,
+                'message'=>'task Assign successfully',
+            ]);
+                
+            
+            } catch (JWTException $e) {
+        
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to assign task.',
+                ]);
+        } 
+    }
 
 
 

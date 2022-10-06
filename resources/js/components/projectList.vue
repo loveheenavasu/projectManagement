@@ -17,7 +17,7 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Assigned to</th>
+                                        
                                         <th>Action</th>
                                         
                                     </tr>
@@ -25,11 +25,7 @@
                                 <tbody>
                                     <tr v-for='(user, index) in users'>
                                         <td>{{user.name}} </td>
-                                        <td> 
-                                        <li v-if="!user.assigned_detail.length">No item found</li>
-                      <li v-for="item in user.assigned_detail">
-                        {{item.user_detail.name}}
-                      </li></td>
+                                        
                                         <td>
                                           <router-link :to="'/project-edit/' + user.id">Edit</router-link> / <button @click="projectDelete(user.id,index)">Delete</button>
                                           /
