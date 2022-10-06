@@ -14,7 +14,7 @@
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Task Name</th>
                                         <th>Description</th>
                                         <th>Action</th>
                                         
@@ -29,7 +29,7 @@
                                         <td>
                                           <router-link :to="'/project-edit/' + user.id">Edit</router-link> / <button @click="projectDelete(user.id,index)">Delete</button>
                                           /
-                                          <router-link :to="'/assign-task/' + project_id+'/'+user.id">Assign task</router-link> 
+                                          <router-link :to="'/assign-task/' + project_id+'/'+user.id">Assign task</router-link>/ <router-link :to="'/task-details/'+user.id">View task Details</router-link>
                                         </td>
                                         
                                     </tr>
