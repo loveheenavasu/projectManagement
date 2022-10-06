@@ -74,8 +74,7 @@
   import Header from './header';
   import Sidebar from './sidebar';
   import { useRouter } from "vue-router";
-  import VPagination from "@hennge/vue3-pagination";
-  import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+  
 export default {
     setup(){
       let cookies = inject('cookies');
