@@ -22459,30 +22459,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
       user_id: '',
-      start_date: '',
-      end_date: ''
+      starting_date: '',
+      ending_date: '',
+      status: ''
     });
     var rules = {
       user_id: {
         required: _vuelidate_validators__WEBPACK_IMPORTED_MODULE_6__.required
       },
-      start_date: {
+      starting_date: {
         required: _vuelidate_validators__WEBPACK_IMPORTED_MODULE_6__.required
       },
-      end_date: {
+      ending_date: {
+        required: _vuelidate_validators__WEBPACK_IMPORTED_MODULE_6__.required
+      },
+      status: {
         required: _vuelidate_validators__WEBPACK_IMPORTED_MODULE_6__.required
       }
     };
     var v$ = (0,_vuelidate_core__WEBPACK_IMPORTED_MODULE_1__["default"])(rules, form);
 
-    var addTask = /*#__PURE__*/function () {
+    var assignTask = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var result;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log(form);
+                console.log('sadas');
                 _context.next = 3;
                 return v$.value.$validate();
 
@@ -22490,7 +22494,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 result = _context.sent;
 
                 if (result) {
-                  axios.post('/api/add-task', form, {
+                  axios.post('/api/assign-task', form, {
                     headers: {
                       Authorization: "Bearer " + localStorage.getItem('access_token')
                     }
@@ -22500,7 +22504,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     if (response.data.success == false) {
                       alert(response.data.message);
                     } else {
-                      router.push('/project-tasks/' + id);
+                      router.push('/project-tasks/' + project_id);
                     } //   if(response.data.token){
                     //     console.log('hello');
                     //     localStorage.setItem('access_token', response.data.token)
@@ -22524,7 +22528,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }));
 
-      return function addTask() {
+      return function assignTask() {
         return _ref.apply(this, arguments);
       };
     }();
@@ -22535,11 +22539,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                // let res = await axios.post('api/auth-login',form);
-                // console.log(res.token);
-                // if(res.token){
-                //   console.log(res.token);
-                // }
                 axios.get('/api/user-list', {
                   headers: {
                     Authorization: "Bearer " + localStorage.getItem('access_token')
@@ -22578,10 +22577,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       v$: v$,
       form: form,
-      addTask: addTask,
       isAuthenticated: isAuthenticated,
       getUsers: getUsers,
-      users: users
+      users: users,
+      assignTask: assignTask
     };
   },
   components: {
@@ -24508,7 +24507,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sidebar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Header), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return _ctx.assignTask && _ctx.assignTask.apply(_ctx, arguments);
+      return $setup.assignTask && $setup.assignTask.apply($setup, arguments);
     }, ["prevent"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Email input "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-control",
@@ -24530,11 +24529,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "form2Example1",
     "class": "form-control",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $setup.form.start_date = $event;
+      return $setup.form.starting_date = $event;
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.start_date]]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.v$.start_date.$errors, function (error) {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.starting_date]]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.v$.starting_date.$errors, function (error) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
       "class": "error",
       key: error.$uid
@@ -24552,7 +24551,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.end_date]]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.v$.end_date.$errors, function (error) {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.end_date]]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.v$.ending_date.$errors, function (error) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
       "class": "error",
       key: error.$uid
@@ -25084,7 +25083,7 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_4 = {
-  "class": "form-group w-50 mx-auto"
+  "class": "form-group mx-auto"
 };
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -25095,7 +25094,7 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_6 = {
-  "class": "form-outline mb-4 w-50 mx-auto"
+  "class": "form-outline mb-4 mx-auto"
 };
 
 var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -25106,7 +25105,7 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "w-50 mx-auto"
+  "class": "mx-auto"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
   "class": "btn btn-primary"
@@ -25484,6 +25483,9 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" / ");
 
 var _hoisted_11 = ["onClick"];
+
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"pagination\"><nav aria-label=\"Page navigation example\"><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">«</span></a></li><li class=\"page-item\"><a class=\"page-link\" href=\"#\">1</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">»</span></a></li></ul></nav></div>", 1);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Sidebar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Sidebar");
 
@@ -25516,7 +25518,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , _hoisted_11)])]);
   }), 256
   /* UNKEYED_FRAGMENT */
-  ))])])])])])])])], 64
+  ))])]), _hoisted_12])])])])])], 64
   /* STABLE_FRAGMENT */
   );
 }
@@ -25750,7 +25752,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".error{\ncolor: red;\n}\n.container{\n\tpadding-top: 40px;\n}\n.error{\n\tcolor: red;\n}\n.login-form{\n\t    background-color: #f2ecec;\n}\n\n#main {\n\tbackground-color: #dee2e6;\n}\n.style-block {\n\tbackground-color: #fff;\n    border-radius: 5px;\n}\n .bg-drk-purple {\n            background-color: #fff;\n            padding: 16px 0px 12px 26px;\n            left: unset !important;\n            width: calc(100% - 250px);\n        }\n\n        .main-active .bg-drk-purple {\n            width: 100%;\n\n        }\n\n        .bg-drk-purple i {\n            font-size: 20px;\n            cursor: pointer;\n        }\n\n        .main .card {\n            border: none;\n            background-color: #d3f4ed;\n        }\n\n        \n\n        .sidebar-sticky .nav-item i {\n            margin-right: 7px;\n            font-size: 14px;\n        }\n\n        #sidebar.active {\n            position: absolute;\n            width: 100%;\n            max-width: 250px;\n            z-index: 5;\n        }\n\n        #sidebar {\n            position: fixed;\n            top: 0;\n            left: 0;\n            z-index: 11;\n            height: 100vh;\n            width: 100%;\n            max-width: 0px;\n            background-color: #343a40;\n            transition: .4s;\n            overflow: hidden;\n        }\n\n        .slidebar .nav-item .nav-link {\n            color: #fff;\n        }\n\n        .main {\n            width: calc(100% - 250px);\n            margin-left: auto;\n            padding: 90px 12px 65px;\n            background-color: #f1f3f6;\n            transition: .4s;\n            height: 100vh;\n        }\n\n        .main-active {\n            width: 100%;\n        }\n\n        .bd-placeholder-img {\n            font-size: 1.125rem;\n            text-anchor: middle;\n            -webkit-user-select: none;\n            -moz-user-select: none;\n            user-select: none;\n        }\n\n        .full-visual .navbar-brand {\n            padding: 20px;\n            top: 0;\n            left: 0;\n            width: 250px;\n            margin: 0;\n            color: #fff;\n            z-index: 1030;\n        }\n\n        .color-deco {\n            color: #46cbb1;\n        }\n\n        .main .container {\n            max-width: 100%;\n        }\n\n        @media (max-width: 991px) {\n            #sidebar.active, .bg-drk-purple{\n                max-width: 200px;\n            }\n        }\n\n        @media (min-width: 768px) {\n            .bd-placeholder-img-lg {\n                font-size: 3.5rem;\n            }\n        }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".error{\ncolor: red;\n}\n.container{\n\tpadding-top: 40px;\n}\n.error{\n\tcolor: red;\n}\n.login-form{\n\t    background-color: #f2ecec;\n}\n\n#main {\n\tbackground-color: #dee2e6;\n}\n.style-block {\n\tbackground-color: #fff;\n    border-radius: 5px;\n}\n .bg-drk-purple {\n            background-color: #fff;\n            padding: 16px 0px 12px 26px;\n            left: unset !important;\n            width: calc(100% - 250px);\n        }\n\n        .main-active .bg-drk-purple {\n            width: 100%;\n\n        }\n\n        .bg-drk-purple i {\n            font-size: 20px;\n            cursor: pointer;\n        }\n\n        .main .card {\n            border: none;\n            background-color: #d3f4ed;\n        }\n\n        \n\n        .sidebar-sticky .nav-item i {\n            margin-right: 7px;\n            font-size: 14px;\n        }\n\n        #sidebar.active {\n            position: absolute;\n            width: 100%;\n            max-width: 250px;\n            z-index: 5;\n        }\n\n        #sidebar {\n            position: fixed;\n            top: 0;\n            left: 0;\n            z-index: 11;\n            height: 150vh;\n            width: 100%;\n            max-width: 0px;\n            background-color: #343a40;\n            transition: .4s;\n            overflow: hidden;\n        }\n.pagination {\n    justify-content: center;\n    padding-top: 30px;\n    padding-bottom: 10px;\n    display: flex;\n    padding-left: 0;\n    list-style: none;\n    border-radius: 0.25rem;\n}\n        .slidebar .nav-item .nav-link {\n            color: #fff;\n        }\n\n        .main {\n            width: calc(100% - 250px);\n            margin-left: auto;\n            padding: 90px 12px 65px;\n            background-color: #f1f3f6;\n            transition: .4s;\n            height: 150vh;\n        }\n\n        .main-active {\n            width: 100%;\n        }\n\n        .bd-placeholder-img {\n            font-size: 1.125rem;\n            text-anchor: middle;\n            -webkit-user-select: none;\n            -moz-user-select: none;\n            user-select: none;\n        }\n\n        .full-visual .navbar-brand {\n            padding: 20px;\n            top: 0;\n            left: 0;\n            width: 250px;\n            margin: 0;\n            color: #fff;\n            z-index: 1030;\n        }\n\n        .color-deco {\n            color: #46cbb1;\n        }\n\n        .main .container {\n            max-width: 100%;\n        }\n\n    .container.login-form {\n        max-width: 700px;\n        padding-bottom: 70px;\n        padding-left: 70px;\n        padding-right: 70px;\n    }\n        @media (max-width: 991px) {\n            #sidebar.active, .bg-drk-purple{\n                max-width: 200px;\n            }\n        }\n\n        @media (min-width: 768px) {\n            .bd-placeholder-img-lg {\n                font-size: 3.5rem;\n            }\n        }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

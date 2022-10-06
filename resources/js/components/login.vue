@@ -6,7 +6,7 @@
                 <h2 class="login-text">Login</h2>
                <div id="wrong-input" class="w-50 mx-auto  alert alert-danger" role="alert" style="display:none">
               </div>
-              <div class="form-group w-50 mx-auto">
+              <div class="form-group  mx-auto">
 
                   <label class="form-label" for="form2Example1">Email address</label>
                   <input type="email" placeholder="Email" id="form2Example1" class="form-control"  v-model="form.email" />
@@ -16,7 +16,7 @@
               </div>
 
               <!-- Password input -->
-              <div class="form-outline mb-4 w-50 mx-auto">
+              <div class="form-outline mb-4  mx-auto">
                   <label class="form-label" for="form2Example2">Password</label>
                   <input type="password" placeholder="Password" id="form2Example2" class="form-control" v-model="form.password" />
                   <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
@@ -28,7 +28,7 @@
           
 
             <!-- Submit button -->
-            <div class="w-50 mx-auto">
+            <div class=" mx-auto">
                 <button type="submit" class="btn btn-primary">Sign in</button>
             </div>
           </div>
@@ -61,7 +61,7 @@ export default {
       const login = async()=>{
         const result=await v$.value.$validate();
         if(result){
-          axios.post('api/auth-login',form).then((response) => {
+            axios.post('api/auth-login',form).then((response) => {
               if(response.data.token){
                 console.log('hello');
                 localStorage.setItem('access_token', response.data.token)
@@ -73,8 +73,8 @@ export default {
               document.getElementById("wrong-input").innerHTML = "Invalid credential !!!";
             }
         }).catch((error) => {
-            document.getElementById("wrong-input").innerHTML = "Invalid credential !!!";
-            console.log('error page');
+                document.getElementById("wrong-input").innerHTML = "Invalid credential !!!";
+                console.log('error page');
         })
         }else{
           console.log('error form not submitted');

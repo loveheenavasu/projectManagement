@@ -59,14 +59,22 @@ color: red;
             top: 0;
             left: 0;
             z-index: 11;
-            height: 100vh;
+            height: 150vh;
             width: 100%;
             max-width: 0px;
             background-color: #343a40;
             transition: .4s;
             overflow: hidden;
         }
-
+.pagination {
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+}
         .slidebar .nav-item .nav-link {
             color: #fff;
         }
@@ -77,7 +85,7 @@ color: red;
             padding: 90px 12px 65px;
             background-color: #f1f3f6;
             transition: .4s;
-            height: 100vh;
+            height: 150vh;
         }
 
         .main-active {
@@ -111,6 +119,12 @@ color: red;
             max-width: 100%;
         }
 
+    .container.login-form {
+        max-width: 700px;
+        padding-bottom: 70px;
+        padding-left: 70px;
+        padding-right: 70px;
+    }
         @media (max-width: 991px) {
             #sidebar.active, .bg-drk-purple{
                 max-width: 200px;

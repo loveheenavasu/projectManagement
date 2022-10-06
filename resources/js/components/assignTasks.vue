@@ -27,9 +27,9 @@
                           </div>
                           <div class="form-outline mb-4">
                                 <label class="form-label" for="form2Example1">Start date </label>
-                                <input type="date" id="form2Example1" class="form-control"  v-model="form.start_date" />
+                                <input type="date" id="form2Example1" class="form-control"  v-model="form.starting_date" />
                                 
-                                <span class="error" v-for="error in v$.start_date.$errors" :key="error.$uid">
+                                <span class="error" v-for="error in v$.starting_date.$errors" :key="error.$uid">
                                       {{ error.$message}}
                                     </span>
                             </div>
@@ -37,7 +37,7 @@
                                 <label class="form-label" for="form2Example1">Start date </label>
                                 <input type="date" id="form2Example1" class="form-control"  v-model="form.end_date" />
                                 
-                                <span class="error" v-for="error in v$.end_date.$errors" :key="error.$uid">
+                                <span class="error" v-for="error in v$.ending_date.$errors" :key="error.$uid">
                                       {{ error.$message}}
                                     </span>
                             </div>
@@ -93,28 +93,30 @@ export default {
       
       const form = reactive({
         user_id:'',
-        start_date:'',
-        end_date:''
+        starting_date:'',
+        ending_date:'',
+        status:''
       });
       const rules = {
         user_id:{required},
-        start_date:{required},
-        end_date:{required}
+        starting_date:{required},
+        ending_date:{required},
+        status:{required},
       };
       const v$=useValidate(rules, form)
 
-      const addTask = async()=>{
-        console.log(form);
+      const assignTask = async()=>{
+        console.log('sadas');
         const result=await v$.value.$validate();
         if(result){
-          axios.post('/api/add-task',form, { headers:{
+          axios.post('/api/assign-task',form, { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
             }}).then((response) => {
              console.log(response);
             if(response.data.success==false){
                 alert(response.data.message);
             }else{
-               router.push('/project-tasks/'+id)
+               router.push('/project-tasks/'+project_id)
             }
             //   if(response.data.token){
             //     console.log('hello');
@@ -133,14 +135,7 @@ export default {
       }
 
       const getUsers = async()=>{
-        // let res = await axios.post('api/auth-login',form);
-        // console.log(res.token);
-        // if(res.token){
-        //   console.log(res.token);
-        // }
-
-
-          axios.get('/api/user-list', { headers:{
+       axios.get('/api/user-list', { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
             }}).then((response) => {
               
@@ -170,10 +165,10 @@ export default {
       return {
         v$,
         form,
-        addTask,
         isAuthenticated,
         getUsers,
-        users
+        users,
+        assignTask
         
         
       }
