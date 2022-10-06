@@ -14,6 +14,7 @@ import assignproject from '../components/assignproject'
 import projectTasks from '../components/projectTasks'
 import addTasks from '../components/addTasks'
 import assignTasks from '../components/assignTasks'
+import tasksdetails from '../components/tasksdetails'
 
 
 const routes = [
@@ -82,6 +83,11 @@ const routes = [
         path: '/assign-task/:project_id/:task_id',
         name: 'assignTasks',
         component: assignTasks
+    },
+    {
+        path: '/task-details/:task_id',
+        name: 'tasksdetails',
+        component: tasksdetails
     },
 ]
 
