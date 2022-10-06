@@ -149,15 +149,17 @@ class TasksController extends Controller
                  'task_id'=>'required',
                  'starting_date'=>'required',
                  'ending_date'=>'required',
-                 
-
-
-
-
-        ]);
+         ]);
+              if(Assigntask::where('user_id',$request->user_id)->where('task_id',$request->task_id)->count()>0){
+                    return response()->json([
+                    'success' => false,
+                    'message'=>'This task is already assigned to other person',
+                ]);
+              }
 
            if ($validator->fails()) {
                 return response()->json(['error' => $validator->messages()], 200);
+                
             }
               // $taskList=Task::where('id',$id)->first();
              if($user=Assigntask::create($credentials)){
@@ -182,11 +184,11 @@ class TasksController extends Controller
             
               // $taskList=Task::where('id',$id)->first();
              $task_detail=Assigntask::with('task_detail')->with('user')->with('project')->get()->toArray();
-             echo '<pre>';print_R($task_detail);exit;
+             //echo '<pre>';print_R($task_detail);exit;
                 
                 return response()->json([
                 'success' => true,
-                'message'=>'task Assign successfully',
+                'data'=>$task_detail,
             ]);
                 
             
