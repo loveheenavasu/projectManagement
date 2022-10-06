@@ -1,0 +1,9 @@
+<template>
+  <v-pagination
+    v-model="page"
+    :pages="10"
+    :range-size="1"
+    active-color="#DCEDFF"
+    @update:modelValue="updateHandler"
+  />
+</template>

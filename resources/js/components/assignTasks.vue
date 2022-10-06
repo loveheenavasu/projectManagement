@@ -35,7 +35,7 @@
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form2Example1">Start date </label>
-                                <input type="date" id="form2Example1" class="form-control"  v-model="form.end_date" />
+                                <input type="date" id="form2Example1" class="form-control"  v-model="form.ending_date" />
                                 
                                 <span class="error" v-for="error in v$.ending_date.$errors" :key="error.$uid">
                                       {{ error.$message}}
@@ -116,7 +116,7 @@ export default {
             if(response.data.success==false){
                 alert(response.data.message);
             }else{
-               router.push('/project-tasks/'+project_id)
+               router.push('/project-tasks/'+route.params.project_id)
             }
             //   if(response.data.token){
             //     console.log('hello');
