@@ -30,7 +30,7 @@ class Assigntask extends Model
     }
 
     public function user_task_detail(){
-        return $this->hasMany(Tasks::class, 'id', 'task_id');
+        return $this->hasOne(Tasks::class, 'id', 'task_id');
     }
 
     public function project_detail(){
