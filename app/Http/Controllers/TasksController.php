@@ -223,9 +223,7 @@ class TasksController extends Controller
     public function usertaskList($id){
          try {
                  //echo 'edit';die();
-             $task_detail=Assigntask::where("user_id" ,$id)->with('user_task_detail')->with('project_detail')->get();
-             //echo '<pre>';print_R($task_detail);exit;
-                
+             $task_detail=Assigntask::where("user_id" ,$id)->with('user_task_detail')->with('project_detail')->get();               
                 return response()->json([
                 'success' => true,
                 'data'=>$task_detail,
@@ -241,6 +239,37 @@ class TasksController extends Controller
         } 
     }
 
+    public function updatetaskstatus(Request $request){
+        try {
+
+           // echo 'workedit';die();
+             $credentials = $request->only('user_id','task_id','status');
+
+            $validator = Validator::make($credentials, [
+                 
+              
+            ]);
+            //$credentials['status']="pending";
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->messages()], 200);
+            }
+            
+             if ($user = Assigntask::where("user_id", $request->user_id)->where("task_id", $request->task_id)->update(
+                    $credentials)) {
+                    return response()->json([
+                        'success' => true,
+                        'message'=>'task updated successfully',
+                ]);
+
+            }          
+        } catch (JWTException $e) {
+        
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Could not update task.',
+                ]);
+        } 
+    }
 
 
 }
