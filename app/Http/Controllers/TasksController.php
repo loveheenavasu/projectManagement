@@ -61,6 +61,7 @@ class TasksController extends Controller
 
             //echo 'work';die();
             $taskList=Tasks::where('project_id',$id)->get();
+
                    
             return response()->json([
                 'success' => true,
@@ -181,7 +182,7 @@ class TasksController extends Controller
     }
     public function taskDetail(){
          try {
-            
+                 //echo 'edit';die();
               // $taskList=Task::where('id',$id)->first();
              $task_detail=Assigntask::with('task_detail')->with('user')->with('project')->get()->toArray();
              //echo '<pre>';print_R($task_detail);exit;
@@ -200,7 +201,45 @@ class TasksController extends Controller
                 ]);
         } 
     }
+    public function assigntaskDelete($id){
+        try{
 
+            //echo 'delete';die();
+            
+        $projectList=Assigntask::where('id',$id)->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Assigntask deleted successfully'
+            ]);
+
+            } catch (JWTException $e) {
+        
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Could not delete Assigntask.',
+                ]);
+        } 
+    }
+    public function usertaskList($id){
+         try {
+                 //echo 'edit';die();
+             $task_detail=Assigntask::where("user_id" ,$id)->with('user_task_detail')->with('project_detail')->get();
+             //echo '<pre>';print_R($task_detail);exit;
+                
+                return response()->json([
+                'success' => true,
+                'data'=>$task_detail,
+            ]);
+                
+            
+            } catch (JWTException $e) {
+        
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to get task.',
+                ]);
+        } 
+    }
 
 
 

@@ -47,7 +47,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('assign-task', [App\Http\Controllers\TasksController::class, 'assigntask']);
     Route::get('task-delete/{id}', [App\Http\Controllers\TasksController::class, 'taskDelete']);
     Route::get('task-detail/{id}', [App\Http\Controllers\TasksController::class, 'taskDetail']);
-
+    Route::get('assign-task-delete/{id}', [App\Http\Controllers\TasksController::class, 'assigntaskDelete']);
+    Route::get('user-task-list/{id}', [App\Http\Controllers\TasksController::class, 'usertaskList']);
 
     
 });
+// Route::get('user-list', [App\Http\Controllers\UsersController::class, 'userList']);
