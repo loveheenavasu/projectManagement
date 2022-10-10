@@ -28,13 +28,15 @@
                                         <td>{{user.user_task_detail.taskname}} </td>
                                         <td>{{user.user_task_detail.taskdetail}} </td>
                                         <td>{{user.project_detail.name}} </td>
-                                         <td>{{user.status}} </td>
+                                         <td>{{user.status}}{{user.id}} </td>
 
                                         
-                                        <td>
+                                        <td >
                                           
                                           
-                                          <button @click="changeStatus(user.task_id)">Start task</button>
+                                          <button v-if="user.status == 'assigned'" @click="changeStatus(user.task_id,'start')">Start task</button>
+                                          
+                                          <button v-if="user.status != 'assigned'" @click="changeStatus(user.task_id,'stop')">Stop task</button>
                                         </td>
                                         
                                     </tr>
@@ -140,23 +142,32 @@ export default {
     'Sidebar': Sidebar,
   },
   methods:{
-        async changeStatus(id){
-         let task_id=id;
-         let user_id=localStorage.getItem('user_id');
-         console.log(user_id);
-         
-         // router.push('/user-list')
-         
-          const router =useRouter();
-          // axios.get('api/project-delete/'+id, { headers:{
-          //     Authorization: "Bearer "+localStorage.getItem('access_token')
-          //     }}).then((responsse) => {
-          //       this.users.splice(index,1)
-                
-          // }).catch((error) => {
-          //     console.log('error page');
-          //     console.log(error);
-          // })
+        async changeStatus(id,working_status){
+          if (window.confirm("Do you start task ?")) {
+             let task_id=id;
+             let user_id=localStorage.getItem('user_id');
+             const form = {
+                task_id:task_id,
+                user_id:user_id,
+                working_status:working_status
+          };
+             //console.log(user_id);
+             
+             // router.push('/user-list')
+             
+              const router =useRouter();
+              axios.post('api/task-time',form, { headers:{
+                  Authorization: "Bearer "+localStorage.getItem('access_token')
+                  }}).then((response) => {
+                    // this.users.splice(index,1)
+                    //router.push('/my-tasks')
+                    window.location.reload();
+                    
+              }).catch((error) => {
+                  console.log('error page');
+                  console.log(error);
+              })
+        }
         },
         
     }
