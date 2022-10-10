@@ -48,10 +48,11 @@ class UsersController extends Controller
     
         //Token created, return with success response and jwt token
         $user = JWTAuth::user();
+        $user_detail=User::with('role')->where('id',$user->id)->first();
         return response()->json([
             'success' => true,
             'token' => $token,
-            'detail'=>$user,
+            'detail'=>$user_detail,
         ]);
     }
     public function addUser(Request $request){

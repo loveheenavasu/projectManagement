@@ -16,38 +16,40 @@
                   </div>
                             <form @submit.prevent="addUser" >
                       <!-- Email input -->
-                            <div class="form-outline mb-4">
-                              <label class="form-label" for="form2Example1">Name </label>
-                              <input type="text" id="form2Example1" class="form-control"  v-model="form.name" />
-                              
-                              <span class="error" v-for="error in v$.name.$errors" :key="error.$uid">
-                                    {{ error.$message}}
-                                  </span>
-                            </div>
-                            <div class="form-outline mb-6">
-                              <label class="form-label" for="form2Example1">Email address</label>
-                              <input type="email" id="form2Example1" class="form-control"  v-model="form.email" />
-                              
-                              <span class="error" v-for="error in v$.email.$errors" :key="error.$uid">
-                                    {{ error.$message}}
-                                  </span>
-                            </div>
+                              <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example1">Name </label>
+                                <input type="text" id="form2Example1" class="form-control"  v-model="form.name" />
+                                
+                                <span class="error" v-for="error in v$.name.$errors" :key="error.$uid">
+                                      {{ error.$message}}
+                                    </span>
+                              </div>
+                              <div class="form-outline mb-6">
+                                <label class="form-label" for="form2Example1">Email address</label>
+                                <input type="email" id="form2Example1" class="form-control"  v-model="form.email" />
+                                
+                                <span class="error" v-for="error in v$.email.$errors" :key="error.$uid">
+                                      {{ error.$message}}
+                                    </span>
+                              </div>
 
-                      <!-- Password input -->
-                          <div class="form-outline mb-4">
-                            <label class="form-label" for="form2Example2">Password</label>
-                            <input type="password" id="form2Example2" class="form-control" v-model="form.password" />
-                            <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
-                                  {{ error.$message}}
-                                </span>
-                            
-                          </div>
+                          <!-- Password input -->
+                              <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example2">Password</label>
+                                <input type="password" id="form2Example2" class="form-control" v-model="form.password" />
+                                <span class="error" v-for="error in v$.password.$errors" :key="error.$uid">
+                                      {{ error.$message}}
+                                    </span>
+                                
+                              </div>
                         <select class="form-control" v-model="form.role_id" >
                             <option  v-for="option in roleoption" :value="option.id">
                             {{ option.name}}
                             </option>
                           </select>
-
+                            <span class="error" v-for="error in v$.role_id.$errors" :key="error.$uid">
+                                  {{ error.$message}}
+                            </span>
                       
 
                       <!-- Submit button -->
@@ -82,29 +84,23 @@ export default {
       let roleoption=ref(false);
       
       const form = reactive({
+        name:'',
         email:'',
         password:'',
-        name:'',
         role_id:''
       });
       const rules = {
+        name:{required},
         email:{required},
         password:{required},
-        name:{required},
         role_id:{required},
 
       };
       const v$=useValidate(rules, form)
 
       const addUser = async()=>{
-        // let res = await axios.post('api/auth-login',form);
-        // console.log(res.token);
-        // if(res.token){
-        //   console.log(res.token);
-        // }
-
-
         const result=await v$.value.$validate();
+        console.log(result);
         if(result){
           axios.post('api/add-user',form, { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
@@ -125,6 +121,7 @@ export default {
             //   console.log('error');
             // }
         }).catch((error) => {
+
             console.log('error page');
         })
         }else{

@@ -15,6 +15,10 @@ import projectTasks from '../components/projectTasks'
 import addTasks from '../components/addTasks'
 import assignTasks from '../components/assignTasks'
 import tasksdetails from '../components/tasksdetails'
+import mytasks from '../components/mytasks'
+import changeTaskStatus from '../components/changeTaskStatus'
+
+
 
 
 const routes = [
@@ -88,6 +92,16 @@ const routes = [
         path: '/task-details/:task_id',
         name: 'tasksdetails',
         component: tasksdetails
+    },
+    {
+        path: '/my-tasks',
+        name: 'mytasks',
+        component: mytasks
+    },
+    {
+        path: '/change-task-status/:id',
+        name: 'changeTaskStatus',
+        component: changeTaskStatus
     },
 ]
 

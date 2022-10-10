@@ -11,19 +11,22 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-sm-8 py-4 style-block">
                           
-                            <form @submit.prevent="addProject" >
+                            <form @submit.prevent="changeStatus" >
                       <!-- Email input -->
-                              <div class="form-outline mb-4">
-                                <label class="form-label" for="form2Example1">Project Name </label>
-                                <input type="text" id="form2Example1" class="form-control"  v-model="form.name" />
-                                
-                                <span class="error" v-for="error in v$.name.$errors" :key="error.$uid">
-                                      {{ error.$message}}
-                                    </span>
-                              </div>
+                               <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example1">Select Staus </label>
+                              <select class="form-control" v-model="form.status" >
+                                <option value="">Select</option>
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                            <input type="hidden" v-model="form.task_id">
+                            <input type="hidden" v-model="form.user_id">
+
+                          </div>
                       
                                 <!-- Submit button -->
-                              <button type="submit" class="btn btn-primary btn-block mb-4">Add Project</button>
+                              <button type="submit" class="btn btn-primary btn-block mb-4">Update</button>
 
   
             </form>
@@ -43,34 +46,38 @@
   import { required } from '@vuelidate/validators';
   import "../../css/custom.css";
   import Header from './header';
-    import Sidebar from './sidebar';
-    import { useRouter } from "vue-router";
+  import Sidebar from './sidebar';
+  import { useRouter,useRoute } from "vue-router";
 export default {
     setup(){
       let cookies = inject('cookies');
       let isAuthenticated = ref(false);
-      const router =useRouter()
+      const router =useRouter();
+      const route=useRoute()
       
       const form = reactive({
-        name:''
+        status:'',
+        user_id:'',
+        task_id:''
       });
       const rules = {
-        name:{required},
+        status:{required},
+        user_id:{required},
+        task_id:{required}
       };
       const v$=useValidate(rules, form)
 
-      const addProject = async()=>{
-        console.log('asdasfdasf');
+      const changeStatus = async()=>{
         const result=await v$.value.$validate();
         if(result){
-          axios.post('api/add-project',form, { headers:{
+          axios.post('/api/update-task-status',form, { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
             }}).then((response) => {
              console.log(response);
             if(response.data.success==false){
                 alert(response.data.message);
             }else{
-               router.push('/project-list')
+               router.push('/my-tasks')
             }
             //   if(response.data.token){
             //     console.log('hello');
@@ -87,14 +94,19 @@ export default {
         }
         
       }
+      const getDetail = async()=>{
+          form.user_id=localStorage.getItem('user_id');
+          form.task_id=route.params.id;
+      }
       
-      
+      onMounted(getDetail)
       
       return {
         v$,
         form,
-        addProject,
+        changeStatus,
         isAuthenticated,
+        getDetail
         
         
       }

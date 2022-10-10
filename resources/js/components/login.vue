@@ -63,17 +63,20 @@ export default {
         if(result){
             axios.post('api/auth-login',form).then((response) => {
               if(response.data.token){
-                console.log('hello');
+                console.log('dsdfa');
+               // console.log(response.data.detail.role.role_detail.name);
                 localStorage.setItem('access_token', response.data.token)
-                localStorage.setItem('access_token', response.data.token)
+                localStorage.setItem('role', response.data.detail.role.role_detail.name);
+                localStorage.setItem('user_id', response.data.detail.id)
                 isAuthenticated.value = true;
-                router.push('/dashboard')
+               router.push('/dashboard')
             }else{
               document.getElementById('wrong-input').style.display = 'block';
               document.getElementById("wrong-input").innerHTML = "Invalid credential !!!";
             }
         }).catch((error) => {
                 document.getElementById("wrong-input").innerHTML = "Invalid credential !!!";
+                console.log(error);
                 console.log('error page');
         })
         }else{

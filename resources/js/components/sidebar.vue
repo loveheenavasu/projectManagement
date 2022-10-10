@@ -3,22 +3,29 @@
             <div class="sidebar-sticky">
                 <a class="navbar-brand" href="#">Project Management</a>
                 <ul class="nav flex-column">
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="role == 'admin'">
 
-                        <a class="nav-link" href="/dashboard">
+                        <a  class="nav-link" href="/dashboard">
                             <i class="fa fa-home" aria-hidden="true"></i>
                             Dashboard
                         </a>
                         
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user-list">
+                    <li v-if="role == 'admin'" class="nav-item">
+                        <a  class="nav-link" href="/user-list">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             Users
                         </a>
                         
                     </li>
-                    <li class="nav-item">
+                    <li  v-if="role == 'employee'" class="nav-item">
+                        <a  class="nav-link" href="/my-tasks">
+                           <i class="fa-solid fa-list-check"></i>
+                            My tasks
+                        </a>
+                        
+                    </li>
+                    <li class="nav-item" v-if="role == 'admin'">
                         <a class="nav-link" href="/project-list">
                             <i class="fa-solid fa-list-check"></i>
                             Projects
@@ -84,10 +91,31 @@
             </div>
         </aside>
 </template>
-  <script>
+ <script>
+  import { reactive , inject,ref, onMounted } from 'vue';
+  import useValidate from '@vuelidate/core';
+  import { required } from '@vuelidate/validators';
+  import { useRouter } from "vue-router";
+  import "../../css/custom.css"
 export default {
-    setup: () => ({
-        title: 'register'
-    })
+    setup(){
+      
+      let isAuthenticated = ref(false)
+      let role = ref(false)
+     
+      const router =useRouter();
+
+      
+      const checkrole = () =>{
+        role.value=localStorage.getItem('role');
+    }
+      onMounted(checkrole)
+      return {
+        isAuthenticated,
+        checkrole,
+        role
+        
+      }
+    }
 }
 </script>
