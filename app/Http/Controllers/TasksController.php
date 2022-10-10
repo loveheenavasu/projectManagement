@@ -180,15 +180,47 @@ class TasksController extends Controller
                 ]);
         } 
     }
-    public function taskDetail(){
+    public function taskDetail($id){
          try {
-                 //echo 'edit';die();
-              // $taskList=Task::where('id',$id)->first();
-             $task_detail=Assigntask::with('task_detail')->with('user')->with('project')->get()->toArray();
-             //echo '<pre>';print_R($task_detail);exit;
                 
+
+                $hours=0;
+                $minutes=0;
+
+             $task_detail=Assigntask::with('task_detail')->with('user')->with('project')->where("task_id",$id)->get()->toArray();
+            // echo '<pre>';print_R($task_detail);exit;
+                 //echo $starttime= strtotime(date('y/m/d h:i:s'));
+                if(isset($task_detail[0]['status']) && $task_detail[0]['status']=='stopped'){
+
+                    $starttime= $task_detail[0]['starting_date'];
+                   
+                   $stoptime = $task_detail[0]['ending_date'];
+
+                    //print_r( $starttime);die();
+
+                    // $date1 = "2007-03-24";
+                    // $date2 = "2009-06-26";
+                 // echo strtotime($stoptime).'---'.strtotime($starttime).'>';
+
+
+         $diff = abs(strtotime($stoptime) - strtotime($starttime));
+
+                   
+                    //print_r($diff);die();
+                    $hours = floor($diff / 3600);
+                    $minutes = floor(($diff / 60) % 60);
+                    $seconds = $diff % 60;
+
+                   // echo "$hours:$minutes:$seconds";exit;
+
+              }
+
+              //$task_detail['hour']=$hours;
+
                 return response()->json([
                 'success' => true,
+                'hours'=>    $hours,
+                'minutes'=> $minutes,
                 'data'=>$task_detail,
             ]);
                 
@@ -281,10 +313,7 @@ class TasksController extends Controller
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->messages()], 200);
             }
-             // $data=$_GET['working_status'];
-             // print_r($data);die();
-
-
+             
             $working_status=$request->working_status;
 
             if($working_status=='start'){
@@ -296,7 +325,7 @@ class TasksController extends Controller
                 $credentials['ending_date']=date('y/m/d h:i:s');
             }   
             $user = Assigntask::where("user_id", $request->user_id)->where("task_id", $request->task_id)->update(
-                    $credentials) ;
+                    $credentials);
                     return response()->json([
                         'success' => true,
                         'message'=>'task updated successfully',
