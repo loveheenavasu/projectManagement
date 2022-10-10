@@ -270,6 +270,47 @@ class TasksController extends Controller
                 ]);
         } 
     }
+    public function tasktime(Request $request){
+         try {
+                 //echo 'date';die();
+            $credentials = $request->only('user_id','task_id');
+
+            $validator = Validator::make($credentials, [                
+      ]);
+            
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->messages()], 200);
+            }
+             // $data=$_GET['working_status'];
+             // print_r($data);die();
+
+
+            $working_status=$request->working_status;
+
+            if($working_status=='start'){
+
+                  $credentials['status']="started";
+                  $credentials['starting_date']=date('y/m/d h:i:s');
+            }else{
+                $credentials['status']="stopped";
+                $credentials['ending_date']=date('y/m/d h:i:s');
+            }   
+            $user = Assigntask::where("user_id", $request->user_id)->where("task_id", $request->task_id)->update(
+                    $credentials) ;
+                    return response()->json([
+                        'success' => true,
+                        'message'=>'task updated successfully',
+                ]);
+                
+            
+            } catch (JWTException $e) {
+        
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to get task.',
+                ]);
+        } 
+    }
 
 
 }
