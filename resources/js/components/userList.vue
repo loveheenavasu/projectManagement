@@ -35,20 +35,22 @@
                             </table>
                                <div class="pagination">
                           <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
+  <ul class="pagination" >
+    <!-- <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    </li> -->
+    <li class="page-item" v-for="index in count" :key="index"><a class="page-link" href="#" @click="pagination(index)">{{ index }}</a></li>
+    
+    <!-- <li class="page-item"><a class="page-link" href="#">{{count}}</a></li>
     <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
+    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+    <!-- <li class="page-item">
       <a class="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
-    </li>
+    </li> -->
   </ul>
 </nav>
                         </div>
@@ -80,6 +82,7 @@ export default {
       let cookies = inject('cookies');
       let isAuthenticated = ref(false);
       const users = ref(0);
+      const count=ref(0);
       const router =useRouter();
       console.log(router);
       
@@ -107,6 +110,7 @@ export default {
             }else{
 
               users.value=response.data.user;
+              count.value=response.data.count;
               
             }
         }).catch((error) => {
@@ -140,7 +144,8 @@ export default {
         isAuthenticated,
         logout,
         deleteFunc,
-        useRouter
+        useRouter,
+        count
         
       }
 
@@ -152,11 +157,9 @@ export default {
   },
   methods:{
         async userDelete(id,index){
-         console.log(id, "sdfsf")
-         
-         // router.push('/user-list')
-         
-          const router =useRouter();
+          console.log(index);
+
+         const router =useRouter();
             axios.get('api/user-delete/'+id, { headers:{
             Authorization: "Bearer "+localStorage.getItem('access_token')
             }}).then((responsse) => {
@@ -167,6 +170,23 @@ export default {
             console.log(error);
         })
         },
+        async pagination(index=1){
+          console.log(index);
+
+        //  const router =useRouter();
+            axios.get('api/user-list?page='+index, { headers:{
+            Authorization: "Bearer "+localStorage.getItem('access_token')
+            }}).then((responsse) => {
+              //this.users.splice(index,1)
+              //console.log(responsse);
+              this.users.value=responsse.data.user;
+              console.log(users);
+              
+        }).catch((error) => {
+            console.log('error page');
+            console.log(error);
+        })
+        }
         
     }
 }

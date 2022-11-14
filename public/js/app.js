@@ -23698,27 +23698,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     'Sidebar': _sidebar__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   methods: {
-    changeStatus: function changeStatus(id) {
+    changeStatus: function changeStatus(id, working_status) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var task_id, user_id, router;
+        var task_id, user_id, form, router;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                task_id = id;
-                user_id = localStorage.getItem('user_id');
-                console.log(user_id); // router.push('/user-list')
+                if (window.confirm("Do you start task ?")) {
+                  task_id = id;
+                  user_id = localStorage.getItem('user_id');
+                  form = {
+                    task_id: task_id,
+                    user_id: user_id,
+                    working_status: working_status
+                  }; //console.log(user_id);
+                  // router.push('/user-list')
 
-                router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.useRouter)(); // axios.get('api/project-delete/'+id, { headers:{
-                //     Authorization: "Bearer "+localStorage.getItem('access_token')
-                //     }}).then((responsse) => {
-                //       this.users.splice(index,1)
-                // }).catch((error) => {
-                //     console.log('error page');
-                //     console.log(error);
-                // })
+                  router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.useRouter)();
+                  axios.post('api/task-time', form, {
+                    headers: {
+                      Authorization: "Bearer " + localStorage.getItem('access_token')
+                    }
+                  }).then(function (response) {
+                    // this.users.splice(index,1)
+                    //router.push('/my-tasks')
+                    window.location.reload();
+                  })["catch"](function (error) {
+                    console.log('error page');
+                    console.log(error);
+                  });
+                }
 
-              case 4:
+              case 1:
               case "end":
                 return _context3.stop();
             }
@@ -24409,6 +24421,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var cookies = (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)('cookies');
     var isAuthenticated = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var users = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    var count = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.useRouter)();
     console.log(router);
     var form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
@@ -24446,6 +24459,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     _this.logout();
                   } else {
                     users.value = response.data.user;
+                    count.value = response.data.count;
                   }
                 })["catch"](function (error) {
                   console.log('error page');
@@ -24508,7 +24522,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isAuthenticated: isAuthenticated,
       logout: logout,
       deleteFunc: deleteFunc,
-      useRouter: vue_router__WEBPACK_IMPORTED_MODULE_5__.useRouter
+      useRouter: vue_router__WEBPACK_IMPORTED_MODULE_5__.useRouter,
+      count: count
     };
   },
   components: {
@@ -24525,8 +24540,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                console.log(id, "sdfsf"); // router.push('/user-list')
-
+                console.log(index);
                 router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.useRouter)();
                 axios.get('api/user-delete/' + id, {
                   headers: {
@@ -24545,6 +24559,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee3);
+      }))();
+    },
+    pagination: function pagination() {
+      var _arguments = arguments,
+          _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var index;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                index = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+                console.log(index); //  const router =useRouter();
+
+                axios.get('api/user-list?page=' + index, {
+                  headers: {
+                    Authorization: "Bearer " + localStorage.getItem('access_token')
+                  }
+                }).then(function (responsse) {
+                  //this.users.splice(index,1)
+                  //console.log(responsse);
+                  _this3.users.value = responsse.data.user;
+                  console.log(users);
+                })["catch"](function (error) {
+                  console.log('error page');
+                  console.log(error);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     }
   }
@@ -25868,6 +25917,7 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_8 = ["onClick"];
+var _hoisted_9 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Sidebar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Sidebar");
 
@@ -25880,15 +25930,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(user.project_detail.name), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(user.status), 1
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(user.status) + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(user.id), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [user.status == 'assigned' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: 0,
       onClick: function onClick($event) {
-        return $options.changeStatus(user.task_id);
+        return $options.changeStatus(user.task_id, 'start');
       }
     }, "Start task", 8
     /* PROPS */
-    , _hoisted_8)])]);
+    , _hoisted_8)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), user.status != 'assigned' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: 1,
+      onClick: function onClick($event) {
+        return $options.changeStatus(user.task_id, 'stop');
+      }
+    }, "Stop task", 8
+    /* PROPS */
+    , _hoisted_9)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
   }), 256
   /* UNKEYED_FRAGMENT */
   ))])])])])])])])], 64
@@ -26366,9 +26424,16 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" / ");
 
 var _hoisted_11 = ["onClick"];
-
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"pagination\"><nav aria-label=\"Page navigation example\"><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">«</span></a></li><li class=\"page-item\"><a class=\"page-link\" href=\"#\">1</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">»</span></a></li></ul></nav></div>", 1);
-
+var _hoisted_12 = {
+  "class": "pagination"
+};
+var _hoisted_13 = {
+  "aria-label": "Page navigation example"
+};
+var _hoisted_14 = {
+  "class": "pagination"
+};
+var _hoisted_15 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Sidebar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Sidebar");
 
@@ -26401,7 +26466,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , _hoisted_11)])]);
   }), 256
   /* UNKEYED_FRAGMENT */
-  ))])]), _hoisted_12])])])])])], 64
+  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"page-item\">\n      <a class=\"page-link\" href=\"#\" aria-label=\"Previous\">\n        <span aria-hidden=\"true\">&laquo;</span>\n      </a>\n    </li> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.count, function (index) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
+      "class": "page-item",
+      key: index
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+      "class": "page-link",
+      href: "#",
+      onClick: function onClick($event) {
+        return $options.pagination(index);
+      }
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index), 9
+    /* TEXT, PROPS */
+    , _hoisted_15)]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\">{{count}}</a></li>\n    <li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>\n    <li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"page-item\">\n      <a class=\"page-link\" href=\"#\" aria-label=\"Next\">\n        <span aria-hidden=\"true\">&raquo;</span>\n      </a>\n    </li> ")])])])])])])])])], 64
   /* STABLE_FRAGMENT */
   );
 }
@@ -26609,6 +26689,19 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_17__.createRouter)({
   routes: routes
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
+router.beforeEach(function (to, from, next) {
+  var publicPages = ['/'];
+  var authRequired = !publicPages.includes(to.path);
+  var token = localStorage.getItem('access_token');
+
+  if (authRequired) {
+    if (!token) {
+      next('/');
+    }
+  }
+
+  next();
+});
 
 /***/ }),
 
